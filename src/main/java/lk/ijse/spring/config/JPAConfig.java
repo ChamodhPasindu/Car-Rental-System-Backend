@@ -40,7 +40,7 @@ public class JPAConfig {
         dataSource.setUrl(env.getRequiredProperty("my.app.url"));
         dataSource.setUsername(env.getRequiredProperty("my.app.username"));
         dataSource.setPassword(env.getRequiredProperty("my.app.password"));
-        dataSource.setDriverClassName(env.getRequiredProperty("my.app.driverclassname"));
+        dataSource.setDriverClassName(env.getRequiredProperty("my.app.driverclass"));
         return dataSource;
     }
 
