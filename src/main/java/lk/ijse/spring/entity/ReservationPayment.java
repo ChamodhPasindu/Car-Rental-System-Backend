@@ -17,8 +17,7 @@ import java.util.Date;
 @Entity(name = "reservation_payment")
 public class ReservationPayment {
     @Id
-    @Column(name = "bill_id")
-    private String id;
+    private String bill_id;
 
     private Date pay_date;
     private BigDecimal rental_fee;

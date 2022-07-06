@@ -13,9 +13,8 @@ import javax.persistence.*;
 public class CarImgDetail {
 
     @Id
-    @Column(name = "img_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int img_id;
 
     private String image_1;
     private String image_2;

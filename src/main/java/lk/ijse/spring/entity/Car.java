@@ -16,8 +16,7 @@ import java.util.List;
 @Entity(name = "car")
 public class Car {
     @Id
-    @Column(name = "registration_no")
-    private String id;
+    private String registration_no;
 
     private String brand;
     private String type;

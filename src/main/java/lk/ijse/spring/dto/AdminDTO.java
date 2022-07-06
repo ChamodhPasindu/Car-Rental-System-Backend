@@ -10,7 +10,7 @@ import lombok.ToString;
 @Data
 @ToString
 public class AdminDTO {
-    private String id;
+    private String admin_id;
     private String name;
     private String password;
 

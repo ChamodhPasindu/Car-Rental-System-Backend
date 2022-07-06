@@ -16,8 +16,7 @@ import java.sql.Time;
 @Entity(name = "car_reservation")
 public class CarReservation {
     @Id
-    @Column(name = "reserve_id")
-    private String id;
+    private String reserve_id;
 
     private Date reserve_date;
     private Date pick_up_date;

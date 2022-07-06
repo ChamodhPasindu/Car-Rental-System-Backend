@@ -17,8 +17,7 @@ import java.util.List;
 @Entity(name = "driver")
 public class Driver {
     @Id
-    @Column(name = "nic")
-    private String id;
+    private String nic;
 
     private String driver_name;
     private String address;

@@ -13,7 +13,7 @@ import java.util.Date;
 @Data
 @ToString
 public class ReservationPaymentDTO {
-    private String id;
+    private String bill_id;
 
     private Date pay_date;
     private BigDecimal rental_fee;

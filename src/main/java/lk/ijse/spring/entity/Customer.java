@@ -16,8 +16,7 @@ import java.util.List;
 @Entity(name = "customer")
 public class Customer {
     @Id
-    @Column(name = "nic")
-    private String id;
+    private String nic;
     private String user_name;
     private String password;
 

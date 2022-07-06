@@ -17,9 +17,8 @@ import java.sql.Time;
 @Entity(name = "driver_schedule")
 public class DriverSchedule {
     @Id
-    @Column(name = "schedule_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int schedule_id;
 
     private Time start_time;
     private Date start_date;
