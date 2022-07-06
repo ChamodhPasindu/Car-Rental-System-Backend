@@ -5,9 +5,23 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-/*@AllArgsConstructor
+import java.math.BigDecimal;
+import java.util.Date;
+
+@AllArgsConstructor
 @NoArgsConstructor
 @Data
-@ToString*/
+@ToString
 public class ReservationPaymentDTO {
+    private String id;
+
+    private Date pay_date;
+    private BigDecimal rental_fee;
+    private BigDecimal driver_fee;
+    private BigDecimal waiver_payment;
+    private BigDecimal damage_cost;
+    private BigDecimal return_cost;
+    private BigDecimal total_payment;
+
+    private CarReservationDTO carReservationDTO;
 }

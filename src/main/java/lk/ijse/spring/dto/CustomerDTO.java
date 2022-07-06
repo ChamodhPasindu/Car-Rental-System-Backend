@@ -5,9 +5,20 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-/*@AllArgsConstructor
+import javax.persistence.Column;
+@AllArgsConstructor
 @NoArgsConstructor
 @Data
-@ToString*/
+@ToString
 public class CustomerDTO {
+    private String nic;
+    private String user_name;
+    private String password;
+    private String name;
+    private String license_no;
+    private String license_img;
+    private String nic_img;
+    private String address;
+    private String mobile;
+    private String email;
 }
