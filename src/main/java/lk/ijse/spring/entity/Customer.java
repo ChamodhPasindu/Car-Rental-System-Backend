@@ -24,6 +24,8 @@ public class Customer {
     @Column(name = "customer_name")
     private String name;
     private String license_no;
+    private String license_img;
+    private String nic_img;
     private String address;
     private String mobile;
     private String email;

@@ -7,6 +7,7 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.util.List;
 
 @NoArgsConstructor
@@ -23,7 +24,7 @@ public class Driver {
     private String address;
     private String license_no;
     private String mobile;
-    private BigDecimal salary;
+    private Date join_date;
 
     @OneToMany(mappedBy = "driver",cascade = CascadeType.ALL)
     private List<CarReservation>carReservations;
