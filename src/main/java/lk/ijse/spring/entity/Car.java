@@ -25,12 +25,16 @@ public class Car {
     private int no_of_passengers;
     private int mileage;
     private String fuel_type;
-    private String daily_rate;
-    private String monthly_rate;
-    private String free_km_for_day;
-    private String free_km_for_month;
+    private int daily_rate;
+    private int monthly_rate;
+    private int free_km_for_day;
+    private int free_km_for_month;
     private BigDecimal price_for_extra_km;
     private String status;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "img_id")
+    private CarImgDetail carImgDetail;
 
     @OneToMany(mappedBy = "car",cascade = CascadeType.ALL)
     private List<CarReservation> reservations;

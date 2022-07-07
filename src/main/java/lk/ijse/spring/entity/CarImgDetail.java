@@ -21,7 +21,5 @@ public class CarImgDetail {
     private String image_3;
     private String image_4;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "registration_no")
-    private Car car;
+
 }

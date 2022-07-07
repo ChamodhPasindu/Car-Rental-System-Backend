@@ -17,5 +17,4 @@ public class CarImgDetailDTO {
     private String image_3;
     private String image_4;
 
-    private CarDTO carDTO;
 }

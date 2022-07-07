@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 @ToString
 public class CarDTO {
 
-    private String registration_id;
+    private String registration_no;
     private String brand;
     private String type;
     private String transmission;
@@ -21,10 +21,12 @@ public class CarDTO {
     private int no_of_passengers;
     private int mileage;
     private String fuel_type;
-    private String daily_rate;
-    private String monthly_rate;
-    private String free_km_for_day;
-    private String free_km_for_month;
+    private int daily_rate;
+    private int monthly_rate;
+    private int free_km_for_day;
+    private int free_km_for_month;
     private BigDecimal price_for_extra_km;
     private String status;
+
+    private CarImgDetailDTO carImgDetailDTO;
 }
