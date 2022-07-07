@@ -29,8 +29,9 @@ public class CustomerController {
     Environment env;
 
 
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity registerCustomer(@RequestPart("file") MultipartFile[] file, @RequestPart("customer") CustomerDTO customerDTO) {
+    public ResponseUtil registerCustomer(@RequestPart("file") MultipartFile[] file, @RequestPart("customer") CustomerDTO customerDTO) {
 
         for (MultipartFile myFile : file) {
 
@@ -42,12 +43,30 @@ public class CustomerController {
 
             } catch (IOException e) {
                 e.printStackTrace();
-                return new ResponseEntity(new ResponseUtil(200, e.getMessage(), null), HttpStatus.INTERNAL_SERVER_ERROR);
+                return new ResponseUtil(500,"Registration Failed.Try Again Latter", null);
             }
         }
 
         customerService.saveCustomer(customerDTO);
-        return new ResponseEntity(new ResponseUtil(200, "Registration Successfully....", null), HttpStatus.CREATED);
+        return new ResponseUtil(200, "Registration Successfully....", null);
+    }
+
+    @PutMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseUtil updateCustomerDetails(@RequestPart("file") MultipartFile[] file, @RequestPart("customer") CustomerDTO customerDTO){
+
+        for (MultipartFile myFile : file) {
+            System.out.println(myFile);
+            try {
+                File uploadsDir = new File(env.getRequiredProperty("customer.image.path") + "/uploads");
+                myFile.transferTo(new File(uploadsDir.getAbsolutePath() + "/" + myFile.getOriginalFilename()));
+            } catch (IOException e) {
+                e.printStackTrace();
+                return new ResponseUtil(500,"Update Details Failed.Try Again Latter", null);
+            }
+        }
+
+        customerService.updateCustomer(customerDTO);
+        return new ResponseUtil(200, "Update Details Successfully....", null);
     }
 
 }

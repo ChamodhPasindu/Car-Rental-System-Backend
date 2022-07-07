@@ -6,5 +6,9 @@ import lk.ijse.spring.entity.Customer;
 public interface CustomerService {
     void saveCustomer(CustomerDTO customerDTO);
 
+    void updateCustomer(CustomerDTO customerDTO);
+
     CustomerDTO checkCustomerLogIn(String id,String password);
+
+
 }
