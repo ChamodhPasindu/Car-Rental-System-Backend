@@ -20,8 +20,7 @@ public class Customer {
     private String user_name;
     private String password;
 
-    @Column(name = "customer_name")
-    private String name;
+    private String customer_name;
     private String license_no;
     private String license_img;
     private String nic_img;
