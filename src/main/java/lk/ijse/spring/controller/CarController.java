@@ -28,10 +28,7 @@ public class CarController {
     @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseUtil addCar(@RequestPart("file") MultipartFile[] file, @RequestPart("car") CarDTO carDTO) {
 
-        System.out.println(carDTO.toString()+" "+carDTO.getCarImgDetailDTO().toString());
-
         for (MultipartFile myFile : file) {
-            System.out.println(myFile.getOriginalFilename());
             try {
                 String projectPath = env.getRequiredProperty("vehicle.image.path");
                 File uploadsDir = new File(projectPath + "/uploads");
@@ -49,5 +46,23 @@ public class CarController {
 
     }
 
+    @PutMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseUtil updateCarDetails(@RequestPart("file") MultipartFile[] file, @RequestPart("car") CarDTO carDTO) {
+
+        for (MultipartFile myFile : file) {
+            try {
+                File uploadsDir = new File(env.getRequiredProperty("vehicle.image.path") + "/uploads");
+                myFile.transferTo(new File(uploadsDir.getAbsolutePath() + "/" + myFile.getOriginalFilename()));
+
+            } catch (IOException e) {
+                e.printStackTrace();
+                return new ResponseUtil(500, "Update Vehicle Details Failed.Try Again Latter", null);
+            }
+        }
+
+        carService.updateCar(carDTO);
+        return new ResponseUtil(200, "Update Vehicle Details Successfully...", null);
+
+    }
 
 }

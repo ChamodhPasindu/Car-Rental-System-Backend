@@ -29,4 +29,13 @@ public class CarServiceImpl implements CarService {
             throw new RuntimeException("This Vehicle Already Registered To System..!");
         }
     }
+
+    @Override
+    public void updateCar(CarDTO carDTO) {
+        if (carRepo.existsById(carDTO.getRegistration_no())){
+            carRepo.save(mapper.map(carDTO, Car.class));
+        }else {
+            throw new RuntimeException("Something wrong.!  This Vehicle's Previous Record is Missing..Add Again");
+        }
+    }
 }
