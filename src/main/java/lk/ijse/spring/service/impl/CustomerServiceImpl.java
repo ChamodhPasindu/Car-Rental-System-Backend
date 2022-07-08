@@ -38,6 +38,15 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    public CustomerDTO getCustomerDetail(String id) {
+        if (customerRepo.existsById(id)) {
+            return mapper.map(customerRepo.findById(id).get(), CustomerDTO.class);
+        }else{
+            throw new RuntimeException("Something Wrong in Your Account..! Please Contact Admin..!");
+        }
+    }
+
+    @Override
     public CustomerDTO checkCustomerLogIn(String user_name, String password) {
         Customer customer = customerRepo.checkCustomerLogIn(user_name, password);
         if (!(customer ==null)){

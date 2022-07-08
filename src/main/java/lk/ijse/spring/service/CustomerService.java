@@ -7,7 +7,9 @@ public interface CustomerService {
 
     void updateCustomer(CustomerDTO customerDTO);
 
-    CustomerDTO checkCustomerLogIn(String id,String password);
+    CustomerDTO getCustomerDetail(String id);
+
+    CustomerDTO checkCustomerLogIn(String user_name,String password);
 
 
 }

@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 
 @RestController
 @CrossOrigin
@@ -30,12 +31,12 @@ public class CarController {
 
         for (MultipartFile myFile : file) {
             try {
-                String projectPath = env.getRequiredProperty("vehicle.image.path");
+                String projectPath = new File(this.getClass().getProtectionDomain().getCodeSource().getLocation().toURI()).getParentFile().getParentFile().getAbsolutePath();
                 File uploadsDir = new File(projectPath + "/uploads");
                 uploadsDir.mkdir();
                 myFile.transferTo(new File(uploadsDir.getAbsolutePath() + "/" + myFile.getOriginalFilename()));
 
-            } catch (IOException e) {
+            } catch (IOException | URISyntaxException e) {
                 e.printStackTrace();
                 return new ResponseUtil(500, "New Vehicle Add Failed.Try Again Latter", null);
             }
@@ -51,10 +52,11 @@ public class CarController {
 
         for (MultipartFile myFile : file) {
             try {
-                File uploadsDir = new File(env.getRequiredProperty("vehicle.image.path") + "/uploads");
+                String projectPath = new File(this.getClass().getProtectionDomain().getCodeSource().getLocation().toURI()).getParentFile().getParentFile().getAbsolutePath();
+                File uploadsDir = new File(projectPath + "/uploads");
                 myFile.transferTo(new File(uploadsDir.getAbsolutePath() + "/" + myFile.getOriginalFilename()));
 
-            } catch (IOException e) {
+            } catch (IOException | URISyntaxException e) {
                 e.printStackTrace();
                 return new ResponseUtil(500, "Update Vehicle Details Failed.Try Again Latter", null);
             }
@@ -64,5 +66,23 @@ public class CarController {
         return new ResponseUtil(200, "Update Vehicle Details Successfully...", null);
 
     }
+
+
+    @GetMapping(path = "carDetail/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil getCarDetail(@PathVariable String id){
+        CarDTO carDTO = carService.getCarDetail(id);
+
+        carDTO.getCarImgDetail().setImage_1("uploads/"+carDTO.getCarImgDetail().getImage_1());
+        carDTO.getCarImgDetail().setImage_2("uploads/"+carDTO.getCarImgDetail().getImage_2());
+        carDTO.getCarImgDetail().setImage_3("uploads/"+carDTO.getCarImgDetail().getImage_3());
+        carDTO.getCarImgDetail().setImage_4("uploads/"+carDTO.getCarImgDetail().getImage_4());
+
+        System.out.println(carDTO);
+
+
+        return new ResponseUtil(200,"Done",carDTO);
+    }
+
+
 
 }

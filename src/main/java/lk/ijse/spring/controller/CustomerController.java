@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 
 
 @RestController
@@ -37,12 +38,12 @@ public class CustomerController {
         for (MultipartFile myFile : file) {
 
             try {
-                String projectPath = env.getRequiredProperty("customer.image.path");
+                String projectPath = new File(this.getClass().getProtectionDomain().getCodeSource().getLocation().toURI()).getParentFile().getParentFile().getAbsolutePath();
                 File uploadsDir = new File(projectPath + "/uploads");
                 uploadsDir.mkdir();
                 myFile.transferTo(new File(uploadsDir.getAbsolutePath() + "/" + myFile.getOriginalFilename()));
 
-            } catch (IOException e) {
+            } catch (IOException | URISyntaxException e) {
                 e.printStackTrace();
                 return new ResponseUtil(500,"Registration Failed.Try Again Latter", null);
             }
@@ -58,9 +59,11 @@ public class CustomerController {
         for (MultipartFile myFile : file) {
             System.out.println(myFile);
             try {
-                File uploadsDir = new File(env.getRequiredProperty("customer.image.path") + "/uploads");
+                String projectPath = new File(this.getClass().getProtectionDomain().getCodeSource().getLocation().toURI()).getParentFile().getParentFile().getAbsolutePath();
+                File uploadsDir = new File(projectPath + "/uploads");
                 myFile.transferTo(new File(uploadsDir.getAbsolutePath() + "/" + myFile.getOriginalFilename()));
-            } catch (IOException e) {
+
+            } catch (IOException | URISyntaxException e) {
                 e.printStackTrace();
                 return new ResponseUtil(500,"Update Details Failed.Try Again Latter", null);
             }
@@ -68,6 +71,16 @@ public class CustomerController {
 
         customerService.updateCustomer(customerDTO);
         return new ResponseUtil(200, "Update Details Successfully....", null);
+    }
+
+    @GetMapping(path = "customerDetail/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil getCustomerDetail(@PathVariable String id){
+        CustomerDTO customerDTO = customerService.getCustomerDetail(id);
+
+        customerDTO.setLicense_img("uploads/"+customerDTO.getLicense_img());
+        customerDTO.setNic_img("uploads/"+customerDTO.getNic_img());
+
+        return new ResponseUtil(200,"Done",customerDTO);
     }
 
 }
