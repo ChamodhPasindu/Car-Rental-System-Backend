@@ -8,5 +8,7 @@ public interface DriverService {
 
     void UpdateDriver(DriverDTO driverDTO);
 
+    void deleteDriver(String id);
+
 
 }

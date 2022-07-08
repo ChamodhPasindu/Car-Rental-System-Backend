@@ -35,7 +35,16 @@ public class CarServiceImpl implements CarService {
         if (carRepo.existsById(carDTO.getRegistration_no())) {
             carRepo.save(mapper.map(carDTO, Car.class));
         } else {
-            throw new RuntimeException("Something wrong.!  This Vehicle's Previous Record is Missing..Add Again");
+            throw new RuntimeException("Can't Update.!  This Vehicle's Previous Record is Missing..Add Again");
+        }
+    }
+
+    @Override
+    public void deleteCar(String id) {
+        if (carRepo.existsById(id)) {
+            carRepo.deleteById(id);
+        } else {
+            throw new RuntimeException("Can't Delete.!  This Vehicle's Previous Record is Missing..Add Again");
         }
     }
 
@@ -44,7 +53,7 @@ public class CarServiceImpl implements CarService {
         if (carRepo.existsById(id)) {
             return mapper.map(carRepo.findById(id).get(), CarDTO.class);
         } else {
-            throw new RuntimeException("Something wrong.!  This Vehicle's Previous Record is Missing..Add Again");
+            throw new RuntimeException("Can't Get Details.!  This Vehicle's Previous Record is Missing..Add Again");
         }
     }
 

@@ -81,6 +81,12 @@ public class CarController {
         return new ResponseUtil(200,"Done",carDTO);
     }
 
+    @DeleteMapping(path = "removeCar/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil deleteCarDetail(@PathVariable String id){
+        carService.deleteCar(id);
+        return new ResponseUtil(200,"Vehicle Details Deleted Successfully",null);
+
+    }
 
 
 }

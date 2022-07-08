@@ -35,7 +35,16 @@ public class DriverServiceImpl implements DriverService {
             System.out.println(driverDTO.getNic());
             driverRepo.save(mapper.map(driverDTO, Driver.class));
         }else {
-            throw new RuntimeException("Something Wrong..! This Driver's Previous Record is Missing..!");
+            throw new RuntimeException("Can't Update.!  This Driver's Previous Record is Missing..Add Again");
+        }
+    }
+
+    @Override
+    public void deleteDriver(String id) {
+        if (driverRepo.existsById(id)) {
+            driverRepo.deleteById(id);
+        }else {
+            throw new RuntimeException("Can't Update.!  This Driver's Previous Record is Missing..Add Again");
         }
     }
 }

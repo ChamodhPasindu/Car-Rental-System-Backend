@@ -34,4 +34,11 @@ public class DriverController {
 
     }
 
+    @DeleteMapping(path = "removeDriver/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil deleteDriverDetail(@PathVariable String id){
+        driverService.deleteDriver(id);
+        return new ResponseUtil(200,"Driver Details Deleted Successfully",null);
+
+    }
+
 }

@@ -7,6 +7,8 @@ public interface CarService {
 
     void updateCar(CarDTO carDTO);
 
+    void deleteCar(String id);
+
     CarDTO getCarDetail(String id);
 
 }

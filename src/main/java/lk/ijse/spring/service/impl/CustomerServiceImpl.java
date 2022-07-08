@@ -33,7 +33,7 @@ public class CustomerServiceImpl implements CustomerService {
         if (customerRepo.existsById(customerDTO.getNic())){
             customerRepo.save(mapper.map(customerDTO, Customer.class));
         }else {
-            throw new RuntimeException("Something Wrong in Your Account..! Please Contact Admin..!");
+            throw new RuntimeException("Something Wrong,Cant Update Your Details.Please Contact Admin");
         }
     }
 
@@ -42,7 +42,7 @@ public class CustomerServiceImpl implements CustomerService {
         if (customerRepo.existsById(id)) {
             return mapper.map(customerRepo.findById(id).get(), CustomerDTO.class);
         }else{
-            throw new RuntimeException("Something Wrong in Your Account..! Please Contact Admin..!");
+            throw new RuntimeException("Something Wrong,Cant Get Your Details.Please Contact Admin");
         }
     }
 
