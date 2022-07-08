@@ -28,9 +28,9 @@ public class CarReservationDTO {
     private int no_of_days;
     private String reservation_status;
 
-    private CustomerDTO customerDTO;
+    private CustomerDTO customer;
 
-    private CarDTO carDTO;
+    private CarDTO car;
 
-    private DriverDTO driverDTO;
+    private DriverDTO driver;
 }

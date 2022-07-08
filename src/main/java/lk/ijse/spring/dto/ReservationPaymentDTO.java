@@ -23,5 +23,5 @@ public class ReservationPaymentDTO {
     private BigDecimal return_cost;
     private BigDecimal total_payment;
 
-    private CarReservationDTO carReservationDTO;
+    private CarReservationDTO carReservation;
 }

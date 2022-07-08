@@ -19,5 +19,5 @@ public class DriverScheduleDTO {
     private Date start_date;
     private Date end_date;
 
-    private DriverDTO driverDTO;
+    private DriverDTO driver;
 }

@@ -22,8 +22,6 @@ public class CarController {
     @Autowired
     CarService carService;
 
-    @Autowired
-    Environment env;
 
     @ResponseStatus(HttpStatus.OK)
     @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})

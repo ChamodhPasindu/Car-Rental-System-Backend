@@ -26,8 +26,6 @@ public class CustomerController {
     @Autowired
     CustomerService customerService;
 
-    @Autowired
-    Environment env;
 
 
     @ResponseStatus(HttpStatus.CREATED)

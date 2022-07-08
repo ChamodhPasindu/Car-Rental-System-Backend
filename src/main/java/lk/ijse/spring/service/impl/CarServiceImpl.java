@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
 
 @Service
 @Transactional
@@ -24,18 +23,18 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public void saveCar(CarDTO carDTO) {
-        if (!carRepo.existsById(carDTO.getRegistration_no())){
+        if (!carRepo.existsById(carDTO.getRegistration_no())) {
             carRepo.save(mapper.map(carDTO, Car.class));
-        }else {
+        } else {
             throw new RuntimeException("This Vehicle Already Registered To System..!");
         }
     }
 
     @Override
     public void updateCar(CarDTO carDTO) {
-        if (carRepo.existsById(carDTO.getRegistration_no())){
+        if (carRepo.existsById(carDTO.getRegistration_no())) {
             carRepo.save(mapper.map(carDTO, Car.class));
-        }else {
+        } else {
             throw new RuntimeException("Something wrong.!  This Vehicle's Previous Record is Missing..Add Again");
         }
     }
@@ -44,7 +43,7 @@ public class CarServiceImpl implements CarService {
     public CarDTO getCarDetail(String id) {
         if (carRepo.existsById(id)) {
             return mapper.map(carRepo.findById(id).get(), CarDTO.class);
-        }else{
+        } else {
             throw new RuntimeException("Something wrong.!  This Vehicle's Previous Record is Missing..Add Again");
         }
     }
