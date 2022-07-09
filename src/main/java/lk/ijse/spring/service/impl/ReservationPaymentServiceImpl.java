@@ -1,7 +1,10 @@
 package lk.ijse.spring.service.impl;
 
+import lk.ijse.spring.dto.ReservationPaymentDTO;
+import lk.ijse.spring.entity.ReservationPayment;
 import lk.ijse.spring.repo.ReservationPaymentRepo;
 import lk.ijse.spring.service.ReservationPaymentService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,6 +15,9 @@ public class ReservationPaymentServiceImpl implements ReservationPaymentService 
 
     @Autowired
     ReservationPaymentRepo reservationPaymentRepo;
+
+    @Autowired
+    ModelMapper mapper;
 
     @Override
     public String generateReservationBillIdId() {
@@ -33,6 +39,15 @@ public class ReservationPaymentServiceImpl implements ReservationPaymentService 
             }
         } else {
             return "BID-0001";
+        }
+    }
+
+    @Override
+    public void makePaymentForReservation(ReservationPaymentDTO reservationPaymentDTO) {
+        if (!reservationPaymentRepo.existsById(reservationPaymentDTO.getBill_id())){
+            reservationPaymentRepo.save(mapper.map(reservationPaymentDTO, ReservationPayment.class));
+        }else {
+            throw new RuntimeException("Payment Already Done");
         }
     }
 }
