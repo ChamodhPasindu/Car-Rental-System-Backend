@@ -14,20 +14,18 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("controller/payment")
 public class PaymentController {
 
-
-
     @Autowired
     ReservationPaymentService reservationPaymentService;
 
-    @GetMapping(path = "generateBillId",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseUtil generateReservationId(){
-        return new ResponseUtil(200,"Done",reservationPaymentService.generateReservationBillIdId());
+    @GetMapping(path = "generateBillId", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil generateReservationId() {
+        return new ResponseUtil(200, "Done", reservationPaymentService.generateReservationBillIdId());
     }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseUtil makePaymentForReservation(@RequestBody ReservationPaymentDTO reservationPaymentDTO){
+    public ResponseUtil makePaymentForReservation(@RequestBody ReservationPaymentDTO reservationPaymentDTO) {
         reservationPaymentService.makePaymentForReservation(reservationPaymentDTO);
-        return new ResponseUtil(200,"Transaction Successfully",null);
+        return new ResponseUtil(200, "Transaction Successfully", null);
     }
 }

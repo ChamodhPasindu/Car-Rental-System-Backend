@@ -10,7 +10,6 @@ import lombok.ToString;
 @Data
 @ToString
 public class UserDTO {
-
     private String user_name;
     private String password;
 }

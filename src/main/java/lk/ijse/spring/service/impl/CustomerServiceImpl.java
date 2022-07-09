@@ -24,19 +24,28 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public void saveCustomer(CustomerDTO customerDTO) {
-        if (!customerRepo.existsById(customerDTO.getNic())){
+        if (!customerRepo.existsById(customerDTO.getNic())) {
             customerRepo.save(mapper.map(customerDTO, Customer.class));
-        }else {
+        } else {
             throw new RuntimeException("Customer Already Registered..!");
         }
     }
 
     @Override
     public void updateCustomer(CustomerDTO customerDTO) {
-        if (customerRepo.existsById(customerDTO.getNic())){
+        if (customerRepo.existsById(customerDTO.getNic())) {
             customerRepo.save(mapper.map(customerDTO, Customer.class));
-        }else {
+        } else {
             throw new RuntimeException("Something Wrong,Cant Update Your Details.Please Contact Admin");
+        }
+    }
+
+    @Override
+    public void deleteCustomer(String id) {
+        if (customerRepo.existsById(id)){
+            customerRepo.deleteById(id);
+        }else {
+            throw new RuntimeException("Something Wrong,Cant Delete Your Details.Please Contact Admin");
         }
     }
 
@@ -44,7 +53,7 @@ public class CustomerServiceImpl implements CustomerService {
     public CustomerDTO getCustomerDetail(String id) {
         if (customerRepo.existsById(id)) {
             return mapper.map(customerRepo.findById(id).get(), CustomerDTO.class);
-        }else{
+        } else {
             throw new RuntimeException("Something Wrong,Cant Get Your Details.Please Contact Admin");
         }
     }
@@ -52,16 +61,22 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public CustomerDTO checkCustomerLogIn(String user_name, String password) {
         Customer customer = customerRepo.checkCustomerLogIn(user_name, password);
-        if (!(customer ==null)){
-            return  mapper.map(customer, CustomerDTO.class);
-        }else{
+        if (!(customer == null)) {
+            return mapper.map(customer, CustomerDTO.class);
+        } else {
             return null;
         }
     }
 
     @Override
     public List<CustomerDTO> getAllCustomerDetail() {
-        return mapper.map(customerRepo.findAll(),new TypeToken<List<CustomerDTO>>(){
+        return mapper.map(customerRepo.findAll(), new TypeToken<List<CustomerDTO>>() {
+        }.getType());
+    }
+
+    @Override
+    public List<CustomerDTO> getTodayRegisteredCustomers() {
+        return mapper.map(customerRepo.getTodayRegisteredCustomers(),new TypeToken<List<CustomerDTO>>(){
         }.getType());
     }
 }

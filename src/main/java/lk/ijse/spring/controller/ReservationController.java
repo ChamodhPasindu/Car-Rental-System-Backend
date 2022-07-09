@@ -3,7 +3,6 @@ package lk.ijse.spring.controller;
 import lk.ijse.spring.dto.CarReservationDTO;
 import lk.ijse.spring.dto.DriverDTO;
 import lk.ijse.spring.dto.DriverScheduleDTO;
-import lk.ijse.spring.entity.DriverSchedule;
 import lk.ijse.spring.service.CarReservationService;
 import lk.ijse.spring.service.DriverScheduleService;
 import lk.ijse.spring.service.DriverService;
@@ -12,6 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
 
 @CrossOrigin
 @RestController
@@ -33,8 +37,19 @@ public class ReservationController {
     }
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseUtil requestReservation(@RequestBody CarReservationDTO carReservationDTO) {
+    @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseUtil requestReservation(@RequestPart("reservation") CarReservationDTO carReservationDTO, @RequestPart("file") MultipartFile file) {
+
+        try {
+            String projectPath = new File(this.getClass().getProtectionDomain().getCodeSource().getLocation().toURI()).getParentFile().getParentFile().getAbsolutePath();
+            File uploadsDir = new File(projectPath + "/uploads");
+            file.transferTo(new File(uploadsDir.getAbsolutePath() + "/" + file.getOriginalFilename()));
+
+        } catch (URISyntaxException | IOException e) {
+            e.printStackTrace();
+            return new ResponseUtil(500, "Reservation Sending Filed.Try Again Latter", null);
+        }
+
         if (carReservationDTO.getDriver_status().equals("YES")) {
 
             DriverDTO driverDTO = driverService.selectDriverForReservation(
@@ -50,14 +65,24 @@ public class ReservationController {
 
             driverScheduleService.makeSchedule(driverScheduleDTO);
 
-        }else {
+        } else {
             carReservationService.requestReservation(carReservationDTO);
         }
         return new ResponseUtil(200, "Request Send Successfully", null);
     }
 
+    @GetMapping(path = "pendingReservation", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil getAllPendingReservation() {
+        return new ResponseUtil(200, "Request Send Successfully", carReservationService.getAllPendingReservation());
+    }
+
+    @GetMapping(path = "getReservation/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil getReservationDetail(@PathVariable String id) {
+        return new ResponseUtil(200, "Done", carReservationService.getReservationDetail(id));
+    }
+
     @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseUtil updateReservation(@RequestBody CarReservationDTO carReservationDTO){
+    public ResponseUtil updateReservation(@RequestBody CarReservationDTO carReservationDTO) {
         carReservationService.updateReservationDetail(carReservationDTO);
         return new ResponseUtil(200, "Reservation Updated Successfully", null);
     }

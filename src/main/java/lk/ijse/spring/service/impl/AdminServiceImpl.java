@@ -20,7 +20,6 @@ public class AdminServiceImpl implements AdminService {
     @Autowired
     ModelMapper mapper;
 
-
     @Override
     public AdminDTO checkAdminLogIn(String name, String password) {
         Admin admin = adminRepo.checkAdminLogIn(name, password);

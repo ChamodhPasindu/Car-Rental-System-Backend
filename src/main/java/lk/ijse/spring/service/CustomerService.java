@@ -9,11 +9,14 @@ public interface CustomerService {
 
     void updateCustomer(CustomerDTO customerDTO);
 
+    void deleteCustomer(String id);
+
     CustomerDTO getCustomerDetail(String id);
 
     CustomerDTO checkCustomerLogIn(String user_name,String password);
 
     List<CustomerDTO>getAllCustomerDetail();
 
+    List<CustomerDTO> getTodayRegisteredCustomers();
 
 }

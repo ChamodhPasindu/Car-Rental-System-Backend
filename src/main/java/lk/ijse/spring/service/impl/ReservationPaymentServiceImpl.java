@@ -44,9 +44,9 @@ public class ReservationPaymentServiceImpl implements ReservationPaymentService 
 
     @Override
     public void makePaymentForReservation(ReservationPaymentDTO reservationPaymentDTO) {
-        if (!reservationPaymentRepo.existsById(reservationPaymentDTO.getBill_id())){
+        if (!reservationPaymentRepo.existsById(reservationPaymentDTO.getBill_id())) {
             reservationPaymentRepo.save(mapper.map(reservationPaymentDTO, ReservationPayment.class));
-        }else {
+        } else {
             throw new RuntimeException("Payment Already Done");
         }
     }

@@ -1,7 +1,6 @@
 package lk.ijse.spring.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lk.ijse.spring.entity.CarReservation;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

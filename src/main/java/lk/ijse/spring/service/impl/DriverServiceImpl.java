@@ -37,7 +37,6 @@ public class DriverServiceImpl implements DriverService {
     @Override
     public void UpdateDriver(DriverDTO driverDTO) {
         if (driverRepo.existsById(driverDTO.getNic())) {
-            System.out.println(driverDTO.getNic());
             driverRepo.save(mapper.map(driverDTO, Driver.class));
         } else {
             throw new RuntimeException("Update Failed.!  This Driver's Previous Record is Missing..Add Again");
@@ -55,15 +54,16 @@ public class DriverServiceImpl implements DriverService {
 
     @Override
     public DriverDTO getDriverDetail(String id) {
-        if (driverRepo.existsById(id)){
-            return mapper.map(driverRepo.findById(id).get(),DriverDTO.class);
+        if (driverRepo.existsById(id)) {
+            return mapper.map(driverRepo.findById(id).get(), DriverDTO.class);
         }
         throw new RuntimeException("Can't Get Details.!  This Driver's Previous Record is Missing..Add Again");
     }
 
     @Override
     public List<DriverDTO> getAllDriverDetail() {
-        return mapper.map(driverRepo.findAll(),new TypeToken<List<DriverDTO>>(){}.getType());
+        return mapper.map(driverRepo.findAll(), new TypeToken<List<DriverDTO>>() {
+        }.getType());
     }
 
 

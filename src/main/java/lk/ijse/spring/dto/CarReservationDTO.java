@@ -1,9 +1,6 @@
 package lk.ijse.spring.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lk.ijse.spring.entity.Car;
-import lk.ijse.spring.entity.Customer;
-import lk.ijse.spring.entity.Driver;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,6 +24,7 @@ public class CarReservationDTO {
     private String pick_up_and_return_venue;
     private int no_of_days;
     private BigDecimal waiver_payment;
+    private String bank_slip_img;
     private String reservation_status;
     private String driver_status;
 

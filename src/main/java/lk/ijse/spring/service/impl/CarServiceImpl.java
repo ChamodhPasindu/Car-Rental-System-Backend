@@ -24,8 +24,7 @@ public class CarServiceImpl implements CarService {
 
     @Autowired
     ModelMapper mapper;
-
-
+    
     @Override
     public void saveCar(CarDTO carDTO) {
         if (!carRepo.existsById(carDTO.getRegistration_no())) {
@@ -64,7 +63,7 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public List<CarDTO> getAllCarDetail() {
-        return mapper.map(carRepo.findAll(),new TypeToken<List< CarDTO >>(){
+        return mapper.map(carRepo.findAll(), new TypeToken<List<CarDTO>>() {
         }.getType());
     }
 

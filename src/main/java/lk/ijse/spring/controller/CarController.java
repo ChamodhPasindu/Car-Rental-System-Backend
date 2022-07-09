@@ -1,11 +1,9 @@
 package lk.ijse.spring.controller;
 
-import com.sun.deploy.net.proxy.MDefaultBrowserProxyConfig;
 import lk.ijse.spring.dto.CarDTO;
 import lk.ijse.spring.service.CarService;
 import lk.ijse.spring.util.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -23,11 +21,9 @@ public class CarController {
     @Autowired
     CarService carService;
 
-
     @ResponseStatus(HttpStatus.OK)
     @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseUtil addCar(@RequestPart("file") MultipartFile[] file, @RequestPart("car") CarDTO carDTO) {
-
 
         for (MultipartFile myFile : file) {
             try {
@@ -64,35 +60,30 @@ public class CarController {
 
         carService.updateCar(carDTO);
         return new ResponseUtil(200, "Update Vehicle Details Successfully...", null);
-
     }
 
 
-    @GetMapping(path = "carDetail/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseUtil getCarDetail(@PathVariable String id){
+    @GetMapping(path = "carDetail/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil getCarDetail(@PathVariable String id) {
         CarDTO carDTO = carService.getCarDetail(id);
 
-        carDTO.getCarImgDetail().setImage_1("uploads/"+carDTO.getCarImgDetail().getImage_1());
-        carDTO.getCarImgDetail().setImage_2("uploads/"+carDTO.getCarImgDetail().getImage_2());
-        carDTO.getCarImgDetail().setImage_3("uploads/"+carDTO.getCarImgDetail().getImage_3());
-        carDTO.getCarImgDetail().setImage_4("uploads/"+carDTO.getCarImgDetail().getImage_4());
+        carDTO.getCarImgDetail().setImage_1("uploads/" + carDTO.getCarImgDetail().getImage_1());
+        carDTO.getCarImgDetail().setImage_2("uploads/" + carDTO.getCarImgDetail().getImage_2());
+        carDTO.getCarImgDetail().setImage_3("uploads/" + carDTO.getCarImgDetail().getImage_3());
+        carDTO.getCarImgDetail().setImage_4("uploads/" + carDTO.getCarImgDetail().getImage_4());
 
-        System.out.println(carDTO);
-
-
-        return new ResponseUtil(200,"Done",carDTO);
+        return new ResponseUtil(200, "Done", carDTO);
     }
 
-    @GetMapping(path = "AllCarDetail",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseUtil getAllCarDetail(){
-        return new ResponseUtil(200,"Done",carService.getAllCarDetail());
+    @GetMapping(path = "AllCarDetail", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil getAllCarDetail() {
+        return new ResponseUtil(200, "Done", carService.getAllCarDetail());
     }
 
-    @DeleteMapping(path = "removeCar/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseUtil deleteCarDetail(@PathVariable String id){
+    @DeleteMapping(path = "removeCar/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil deleteCarDetail(@PathVariable String id) {
         carService.deleteCar(id);
-        return new ResponseUtil(200,"Vehicle Details Deleted Successfully",null);
-
+        return new ResponseUtil(200, "Vehicle Details Deleted Successfully", null);
     }
 
 
