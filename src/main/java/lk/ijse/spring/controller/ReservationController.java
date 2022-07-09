@@ -49,13 +49,17 @@ public class ReservationController {
                     carReservationDTO);
 
             driverScheduleService.makeSchedule(driverScheduleDTO);
-//            carReservationDTO.setDriverSchedule(driverScheduleDTO);
 
         }else {
             carReservationService.requestReservation(carReservationDTO);
         }
         return new ResponseUtil(200, "Request Send Successfully", null);
+    }
 
+    @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil updateReservation(@RequestBody CarReservationDTO carReservationDTO){
+        carReservationService.updateReservationDetail(carReservationDTO);
+        return new ResponseUtil(200, "Reservation Updated Successfully", null);
     }
 
 }

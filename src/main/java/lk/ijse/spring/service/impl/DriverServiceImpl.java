@@ -40,7 +40,7 @@ public class DriverServiceImpl implements DriverService {
             System.out.println(driverDTO.getNic());
             driverRepo.save(mapper.map(driverDTO, Driver.class));
         } else {
-            throw new RuntimeException("Can't Update.!  This Driver's Previous Record is Missing..Add Again");
+            throw new RuntimeException("Update Failed.!  This Driver's Previous Record is Missing..Add Again");
         }
     }
 
@@ -49,7 +49,7 @@ public class DriverServiceImpl implements DriverService {
         if (driverRepo.existsById(id)) {
             driverRepo.deleteById(id);
         } else {
-            throw new RuntimeException("Can't Update.!  This Driver's Previous Record is Missing..Add Again");
+            throw new RuntimeException("Can't Delete.!  This Driver's Previous Record is Missing..Add Again");
         }
     }
 

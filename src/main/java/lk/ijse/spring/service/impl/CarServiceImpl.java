@@ -40,7 +40,7 @@ public class CarServiceImpl implements CarService {
         if (carRepo.existsById(carDTO.getRegistration_no())) {
             carRepo.save(mapper.map(carDTO, Car.class));
         } else {
-            throw new RuntimeException("Can't Update.!  This Vehicle's Previous Record is Missing..Add Again");
+            throw new RuntimeException("Update Failed.!  This Vehicle's Previous Record is Missing..Add Again");
         }
     }
 

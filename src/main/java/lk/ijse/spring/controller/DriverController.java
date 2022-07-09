@@ -21,14 +21,12 @@ public class DriverController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseUtil saveDriver(@ModelAttribute DriverDTO driverDTO) {
-        System.out.println(driverDTO.toString());
         driverService.saveDriver(driverDTO);
         return new ResponseUtil(200, "Driver Added Successfully", null);
     }
 
     @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     private ResponseUtil updateDriverDetail(@RequestBody DriverDTO driverDTO) {
-        System.out.println(driverDTO.toString());
         driverService.UpdateDriver(driverDTO);
         return new ResponseUtil(200, "Driver Updated Successfully", null);
     }

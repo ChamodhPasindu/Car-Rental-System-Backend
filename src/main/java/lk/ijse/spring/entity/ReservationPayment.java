@@ -20,6 +20,7 @@ public class ReservationPayment {
     private String bill_id;
 
     private Date pay_date;
+    private int no_of_km;
     private BigDecimal rental_fee;
     private BigDecimal driver_fee;
     private BigDecimal damage_cost;

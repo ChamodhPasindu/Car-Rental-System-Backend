@@ -7,4 +7,6 @@ public interface CarReservationService {
     String generateReservationId();
 
     void requestReservation(CarReservationDTO carReservationDTO);
+
+    void updateReservationDetail(CarReservationDTO carReservationDTO);
 }

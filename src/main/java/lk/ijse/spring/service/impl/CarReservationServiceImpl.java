@@ -54,5 +54,14 @@ public class CarReservationServiceImpl implements CarReservationService {
         }
     }
 
+    @Override
+    public void updateReservationDetail(CarReservationDTO carReservationDTO) {
+        if (carReservationRepo.existsById(carReservationDTO.getReserve_id())){
+            carReservationRepo.save(mapper.map(carReservationDTO, CarReservation.class));
+        }else {
+            throw new RuntimeException("Update Failed,This Reservation Previous Record is MissingTry Again..!");
+        }
+    }
+
 
 }
