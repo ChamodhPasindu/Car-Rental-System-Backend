@@ -32,7 +32,7 @@ public class ReservationPaymentServiceImpl implements ReservationPaymentService 
                 return "BID-" + tempId;
             }
         } else {
-            return "BID-001";
+            return "BID-0001";
         }
     }
 }

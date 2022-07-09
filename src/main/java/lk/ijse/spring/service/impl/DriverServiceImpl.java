@@ -4,11 +4,14 @@ import lk.ijse.spring.dto.DriverDTO;
 import lk.ijse.spring.entity.Driver;
 import lk.ijse.spring.repo.CarRepo;
 import lk.ijse.spring.repo.DriverRepo;
+import lk.ijse.spring.repo.DriverScheduleRepo;
 import lk.ijse.spring.service.DriverService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.sql.Date;
 
 @Service
 @Transactional
@@ -22,19 +25,19 @@ public class DriverServiceImpl implements DriverService {
 
     @Override
     public void saveDriver(DriverDTO driverDTO) {
-        if (!driverRepo.existsById(driverDTO.getNic())){
+        if (!driverRepo.existsById(driverDTO.getNic())) {
             driverRepo.save(mapper.map(driverDTO, Driver.class));
-        }else {
+        } else {
             throw new RuntimeException("This Driver Record Already Added To System..!");
         }
     }
 
     @Override
     public void UpdateDriver(DriverDTO driverDTO) {
-        if (driverRepo.existsById(driverDTO.getNic())){
+        if (driverRepo.existsById(driverDTO.getNic())) {
             System.out.println(driverDTO.getNic());
             driverRepo.save(mapper.map(driverDTO, Driver.class));
-        }else {
+        } else {
             throw new RuntimeException("Can't Update.!  This Driver's Previous Record is Missing..Add Again");
         }
     }
@@ -43,8 +46,19 @@ public class DriverServiceImpl implements DriverService {
     public void deleteDriver(String id) {
         if (driverRepo.existsById(id)) {
             driverRepo.deleteById(id);
-        }else {
+        } else {
             throw new RuntimeException("Can't Update.!  This Driver's Previous Record is Missing..Add Again");
+        }
+    }
+
+
+    @Override
+    public DriverDTO selectDriverForReservation(Date pick_date, Date return_date) {
+        Driver driver = driverRepo.selectDriverForReservation(pick_date, return_date);
+        if (!(driver == null)) {
+            return mapper.map(driver, DriverDTO.class);
+        } else {
+            throw new RuntimeException("Sorry,Drivers are not Available in This Moment..");
         }
     }
 }

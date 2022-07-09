@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface ReservationPaymentRepo extends JpaRepository<ReservationPayment,String> {
 
-    @Query(value = "select rp.bill_id from reservation_payment rp order by rp.bill_id desc limit 1",nativeQuery = true)
+    @Query(value = "SELECT bill_id FROM reservation_payment ORDER BY bill_id DESC limit 1",nativeQuery = true)
     String generateReservationBillId();
 }

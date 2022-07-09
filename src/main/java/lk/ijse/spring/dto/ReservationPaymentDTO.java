@@ -18,7 +18,6 @@ public class ReservationPaymentDTO {
     private Date pay_date;
     private BigDecimal rental_fee;
     private BigDecimal driver_fee;
-    private BigDecimal waiver_payment;
     private BigDecimal damage_cost;
     private BigDecimal return_cost;
     private BigDecimal total_payment;

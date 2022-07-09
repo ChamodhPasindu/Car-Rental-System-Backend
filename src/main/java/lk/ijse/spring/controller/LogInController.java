@@ -20,7 +20,7 @@ public class LogInController {
     @Autowired
     AdminService adminService;
 
-    @PutMapping(params = {"user_name", "password"}, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(params = {"user_name", "password"}, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseUtil checkUserNameAndPassword(@RequestParam String user_name, @RequestParam String password) {
 
         CustomerDTO customerDTO = customerService.checkCustomerLogIn(user_name, password);

@@ -1,10 +1,14 @@
 package lk.ijse.spring.service.impl;
 
+import lk.ijse.spring.dto.CarReservationDTO;
+import lk.ijse.spring.entity.CarReservation;
 import lk.ijse.spring.repo.CarReservationRepo;
 import lk.ijse.spring.service.CarReservationService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 
 import javax.xml.ws.Action;
 
@@ -13,6 +17,9 @@ import javax.xml.ws.Action;
 public class CarReservationServiceImpl implements CarReservationService {
     @Autowired
     CarReservationRepo carReservationRepo;
+
+    @Autowired
+    ModelMapper mapper;
 
 
     @Override
@@ -34,7 +41,18 @@ public class CarReservationServiceImpl implements CarReservationService {
                 return "RID-" + tempId;
             }
         } else {
-            return "RID-001";
+            return "RID-0001";
         }
     }
+
+    @Override
+    public void requestReservation(CarReservationDTO carReservationDTO) {
+        if (!carReservationRepo.existsById(carReservationDTO.getReserve_id())){
+            carReservationRepo.save(mapper.map(carReservationDTO, CarReservation.class));
+        }else {
+            throw new RuntimeException("Your Reservation Request can't Send in this moment,Try Again..!");
+        }
+    }
+
+
 }

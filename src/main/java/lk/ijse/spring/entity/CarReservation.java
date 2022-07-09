@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.Time;
 
@@ -24,7 +25,9 @@ public class CarReservation {
     private Time pick_up_time;
     private String pick_up_and_return_venue;
     private int no_of_days;
+    private BigDecimal waiver_payment;
     private String reservation_status;
+    private String driver_status;
 
     @ManyToOne(cascade = {CascadeType.REFRESH,CascadeType.DETACH})
     @JoinColumn(name = "customer_nic")
@@ -34,9 +37,9 @@ public class CarReservation {
     @JoinColumn(name = "registration_no")
     private Car car;
 
-    @ManyToOne(cascade = {CascadeType.REFRESH,CascadeType.DETACH})
-    @JoinColumn(name = "driver_id")
-    private Driver driver;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "schedule_id")
+    private DriverSchedule driverSchedule;
 
 
 }

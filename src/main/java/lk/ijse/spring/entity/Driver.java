@@ -25,6 +25,7 @@ public class Driver {
     private String mobile;
     private Date join_date;
 
+
     @OneToMany(mappedBy = "driver",cascade = CascadeType.ALL)
-    private List<CarReservation>carReservations;
+    private List<DriverSchedule>driverSchedules;
 }

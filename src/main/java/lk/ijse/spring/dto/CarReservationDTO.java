@@ -1,5 +1,6 @@
 package lk.ijse.spring.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lk.ijse.spring.entity.Car;
 import lk.ijse.spring.entity.Customer;
 import lk.ijse.spring.entity.Driver;
@@ -11,6 +12,7 @@ import lombok.ToString;
 import javax.persistence.CascadeType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.Time;
 
@@ -23,14 +25,17 @@ public class CarReservationDTO {
     private Date reserve_date;
     private Date pick_up_date;
     private Date return_date;
+    @JsonFormat(pattern = "HH:mm:ss")
     private Time pick_up_time;
     private String pick_up_and_return_venue;
     private int no_of_days;
+    private BigDecimal waiver_payment;
     private String reservation_status;
+    private String driver_status;
 
     private CustomerDTO customer;
 
     private CarDTO car;
 
-    private DriverDTO driver;
+    private DriverScheduleDTO driverSchedule;
 }
