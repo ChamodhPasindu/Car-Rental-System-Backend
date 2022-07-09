@@ -27,4 +27,9 @@ public class DriverSchedule {
     @ManyToOne(cascade = {CascadeType.REFRESH,CascadeType.DETACH})
     @JoinColumn(name="driver_nic")
     private Driver driver;
+
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "reserve_id")
+    private CarReservation carReservation;
 }

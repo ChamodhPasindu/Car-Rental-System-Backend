@@ -31,7 +31,6 @@ public class DriverController {
         System.out.println(driverDTO.toString());
         driverService.UpdateDriver(driverDTO);
         return new ResponseUtil(200, "Driver Updated Successfully", null);
-
     }
 
     @DeleteMapping(path = "removeDriver/{id}", produces = MediaType.APPLICATION_JSON_VALUE)

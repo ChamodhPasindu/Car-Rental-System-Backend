@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.List;
 
@@ -24,7 +23,6 @@ public class Driver {
     private String license_no;
     private String mobile;
     private Date join_date;
-
 
     @OneToMany(mappedBy = "driver",cascade = CascadeType.ALL)
     private List<DriverSchedule>driverSchedules;

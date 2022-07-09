@@ -37,9 +37,6 @@ public class CarReservation {
     @JoinColumn(name = "registration_no")
     private Car car;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "schedule_id")
-    private DriverSchedule driverSchedule;
 
 
 }

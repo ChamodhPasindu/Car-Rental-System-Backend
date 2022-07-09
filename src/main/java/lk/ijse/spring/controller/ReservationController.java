@@ -3,6 +3,7 @@ package lk.ijse.spring.controller;
 import lk.ijse.spring.dto.CarReservationDTO;
 import lk.ijse.spring.dto.DriverDTO;
 import lk.ijse.spring.dto.DriverScheduleDTO;
+import lk.ijse.spring.entity.DriverSchedule;
 import lk.ijse.spring.service.CarReservationService;
 import lk.ijse.spring.service.DriverScheduleService;
 import lk.ijse.spring.service.DriverService;
@@ -23,6 +24,9 @@ public class ReservationController {
     @Autowired
     DriverService driverService;
 
+    @Autowired
+    DriverScheduleService driverScheduleService;
+
     @GetMapping(path = "generateReservationId", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseUtil generateReservationId() {
         return new ResponseUtil(200, "Done", carReservationService.generateReservationId());
@@ -41,12 +45,15 @@ public class ReservationController {
                     carReservationDTO.getPick_up_time(),
                     carReservationDTO.getPick_up_date(),
                     carReservationDTO.getReturn_date(),
-                    driverDTO);
+                    driverDTO,
+                    carReservationDTO);
 
-            carReservationDTO.setDriverSchedule(driverScheduleDTO);
+            driverScheduleService.makeSchedule(driverScheduleDTO);
+//            carReservationDTO.setDriverSchedule(driverScheduleDTO);
 
+        }else {
+            carReservationService.requestReservation(carReservationDTO);
         }
-        carReservationService.requestReservation(carReservationDTO);
         return new ResponseUtil(200, "Request Send Successfully", null);
 
     }

@@ -37,5 +37,4 @@ public class CarReservationDTO {
 
     private CarDTO car;
 
-    private DriverScheduleDTO driverSchedule;
 }
