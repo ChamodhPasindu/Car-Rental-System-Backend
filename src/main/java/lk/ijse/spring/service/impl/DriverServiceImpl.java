@@ -7,11 +7,13 @@ import lk.ijse.spring.repo.DriverRepo;
 import lk.ijse.spring.repo.DriverScheduleRepo;
 import lk.ijse.spring.service.DriverService;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
+import java.util.List;
 
 @Service
 @Transactional
@@ -49,6 +51,19 @@ public class DriverServiceImpl implements DriverService {
         } else {
             throw new RuntimeException("Can't Update.!  This Driver's Previous Record is Missing..Add Again");
         }
+    }
+
+    @Override
+    public DriverDTO getDriverDetail(String id) {
+        if (driverRepo.existsById(id)){
+            return mapper.map(driverRepo.findById(id).get(),DriverDTO.class);
+        }
+        throw new RuntimeException("Can't Get Details.!  This Driver's Previous Record is Missing..Add Again");
+    }
+
+    @Override
+    public List<DriverDTO> getAllDriverDetail() {
+        return mapper.map(driverRepo.findAll(),new TypeToken<List<DriverDTO>>(){}.getType());
     }
 
 

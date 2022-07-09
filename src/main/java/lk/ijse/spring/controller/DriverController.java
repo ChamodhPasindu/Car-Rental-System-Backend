@@ -20,25 +20,33 @@ public class DriverController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseUtil saveDriver(@ModelAttribute DriverDTO driverDTO){
+    public ResponseUtil saveDriver(@ModelAttribute DriverDTO driverDTO) {
         System.out.println(driverDTO.toString());
         driverService.saveDriver(driverDTO);
-        return new ResponseUtil(200,"Driver Added Successfully",null);
+        return new ResponseUtil(200, "Driver Added Successfully", null);
     }
 
     @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    private ResponseUtil updateDriverDetail(@RequestBody DriverDTO driverDTO){
+    private ResponseUtil updateDriverDetail(@RequestBody DriverDTO driverDTO) {
         System.out.println(driverDTO.toString());
         driverService.UpdateDriver(driverDTO);
-        return new ResponseUtil(200,"Driver Updated Successfully",null);
+        return new ResponseUtil(200, "Driver Updated Successfully", null);
 
     }
 
-    @DeleteMapping(path = "removeDriver/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseUtil deleteDriverDetail(@PathVariable String id){
+    @DeleteMapping(path = "removeDriver/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil deleteDriverDetail(@PathVariable String id) {
         driverService.deleteDriver(id);
-        return new ResponseUtil(200,"Driver Details Deleted Successfully",null);
-
+        return new ResponseUtil(200, "Driver Details Deleted Successfully", null);
     }
 
+    @GetMapping(path = "driverDetail/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil getDriverDetail(@PathVariable String id) {
+        return new ResponseUtil(200, "Done", driverService.getDriverDetail(id));
+    }
+
+    @GetMapping(path = "AllDriverDetail",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil getAllDriverDetail() {
+        return new ResponseUtil(200, "Done", driverService.getAllDriverDetail());
+    }
 }

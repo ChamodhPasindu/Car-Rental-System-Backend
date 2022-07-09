@@ -81,4 +81,9 @@ public class CustomerController {
         return new ResponseUtil(200,"Done",customerDTO);
     }
 
+    @GetMapping(path = "AllCustomerDetail",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil getAllCustomerDetail(){
+        return new ResponseUtil(200,"Done",customerService.getAllCustomerDetail());
+    }
+
 }

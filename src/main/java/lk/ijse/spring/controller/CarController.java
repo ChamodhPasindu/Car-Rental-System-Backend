@@ -1,5 +1,6 @@
 package lk.ijse.spring.controller;
 
+import com.sun.deploy.net.proxy.MDefaultBrowserProxyConfig;
 import lk.ijse.spring.dto.CarDTO;
 import lk.ijse.spring.service.CarService;
 import lk.ijse.spring.util.ResponseUtil;
@@ -80,6 +81,11 @@ public class CarController {
 
 
         return new ResponseUtil(200,"Done",carDTO);
+    }
+
+    @GetMapping(path = "AllCarDetail",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil getAllCarDetail(){
+        return new ResponseUtil(200,"Done",carService.getAllCarDetail());
     }
 
     @DeleteMapping(path = "removeCar/{id}",produces = MediaType.APPLICATION_JSON_VALUE)

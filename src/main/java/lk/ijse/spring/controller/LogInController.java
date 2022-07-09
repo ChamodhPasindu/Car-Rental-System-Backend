@@ -2,6 +2,7 @@ package lk.ijse.spring.controller;
 
 import lk.ijse.spring.dto.AdminDTO;
 import lk.ijse.spring.dto.CustomerDTO;
+import lk.ijse.spring.dto.UserDTO;
 import lk.ijse.spring.service.AdminService;
 import lk.ijse.spring.service.CustomerService;
 import lk.ijse.spring.util.ResponseUtil;
@@ -20,12 +21,12 @@ public class LogInController {
     @Autowired
     AdminService adminService;
 
-    @GetMapping(params = {"user_name", "password"}, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseUtil checkUserNameAndPassword(@RequestParam String user_name, @RequestParam String password) {
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil checkUserNameAndPassword(@RequestBody UserDTO userDTO) {
 
-        CustomerDTO customerDTO = customerService.checkCustomerLogIn(user_name, password);
+        CustomerDTO customerDTO = customerService.checkCustomerLogIn(userDTO.getUser_name(), userDTO.getPassword());
         if (customerDTO == null) {
-            AdminDTO adminDTO = adminService.checkAdminLogIn(user_name, password);
+            AdminDTO adminDTO = adminService.checkAdminLogIn(userDTO.getUser_name(), userDTO.getPassword());
             if (adminDTO == null) {
                 return new ResponseUtil(200, "Incorrect username and password", null);
             } else {

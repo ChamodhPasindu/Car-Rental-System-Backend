@@ -1,13 +1,18 @@
 package lk.ijse.spring.service.impl;
 
+import jdk.nashorn.internal.runtime.regexp.joni.constants.internal.TokenType;
 import lk.ijse.spring.dto.CarDTO;
+import lk.ijse.spring.dto.CustomerDTO;
 import lk.ijse.spring.entity.Car;
 import lk.ijse.spring.repo.CarRepo;
 import lk.ijse.spring.service.CarService;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 
 @Service
@@ -55,6 +60,12 @@ public class CarServiceImpl implements CarService {
         } else {
             throw new RuntimeException("Can't Get Details.!  This Vehicle's Previous Record is Missing..Add Again");
         }
+    }
+
+    @Override
+    public List<CarDTO> getAllCarDetail() {
+        return mapper.map(carRepo.findAll(),new TypeToken<List< CarDTO >>(){
+        }.getType());
     }
 
 }
