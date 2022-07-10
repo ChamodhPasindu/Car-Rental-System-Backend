@@ -70,6 +70,11 @@ public class ReservationController {
         return new ResponseUtil(200, "Done", carReservationService.getReservationDetail(id));
     }
 
+    @GetMapping(path = "todayReservation",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil getAllTodayBooking(){
+        return new ResponseUtil(200, "Done",carReservationService.getAllTodayReservation());
+    }
+
 
 
 }

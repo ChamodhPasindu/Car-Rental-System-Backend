@@ -1,5 +1,6 @@
 package lk.ijse.spring.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lk.ijse.spring.entity.CarReservation;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,7 +16,7 @@ import java.sql.Date;
 @ToString
 public class ReservationPaymentDTO {
     private String bill_id;
-
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date pay_date;
     private int no_of_km;
     private BigDecimal rental_fee;

@@ -16,8 +16,12 @@ import java.sql.Time;
 @ToString
 public class CarReservationDTO {
     private String reserve_id;
+
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date reserve_date;
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date pick_up_date;
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date return_date;
     @JsonFormat(pattern = "HH:mm:ss")
     private Time pick_up_time;

@@ -118,4 +118,10 @@ public class CarReservationServiceImpl implements CarReservationService {
             throw new RuntimeException("Can't Get Details..!  This Reservation Previous Record is Missing.Try Again..!");
         }
     }
+
+    @Override
+    public List<CarReservationDTO> getAllTodayReservation() {
+        return mapper.map(carReservationRepo.getAllTodayReservation(),new TypeToken<List<CarReservationDTO>>(){
+        }.getType());
+    }
 }
