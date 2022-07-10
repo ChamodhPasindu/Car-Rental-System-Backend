@@ -9,9 +9,7 @@ import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.Model;
 
-import javax.xml.ws.Action;
 import java.util.List;
 
 @Service
@@ -66,14 +64,15 @@ public class CarReservationServiceImpl implements CarReservationService {
 
     @Override
     public List<CarReservationDTO> getAllPendingReservation() {
-        return mapper.map(carReservationRepo.getAllPendingReservation(),new TypeToken<List<CarReservationDTO>>(){}.getType());
+        return mapper.map(carReservationRepo.getAllPendingReservation(), new TypeToken<List<CarReservationDTO>>() {
+        }.getType());
     }
 
     @Override
     public CarReservationDTO getReservationDetail(String id) {
         if (carReservationRepo.existsById(id)) {
-            return mapper.map(carReservationRepo.findById(id).get(),CarReservationDTO.class);
-        }else {
+            return mapper.map(carReservationRepo.findById(id).get(), CarReservationDTO.class);
+        } else {
             throw new RuntimeException("Can't Get Details..!  This Reservation Previous Record is Missing.Try Again..!");
         }
     }

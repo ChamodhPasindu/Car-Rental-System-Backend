@@ -1,5 +1,6 @@
 package lk.ijse.spring.dto;
 
+import lk.ijse.spring.entity.CarReservation;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,6 +17,7 @@ public class ReservationPaymentDTO {
     private String bill_id;
 
     private Date pay_date;
+    private int no_of_km;
     private BigDecimal rental_fee;
     private BigDecimal driver_fee;
     private BigDecimal damage_cost;
