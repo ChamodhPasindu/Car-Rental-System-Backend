@@ -23,7 +23,7 @@ public class CustomerDTO {
     private String address;
     private String mobile;
     private String email;
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Kolkata")
     private Date register_date;
 
 }

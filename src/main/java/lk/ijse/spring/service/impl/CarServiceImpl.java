@@ -2,6 +2,7 @@ package lk.ijse.spring.service.impl;
 
 import jdk.nashorn.internal.runtime.regexp.joni.constants.internal.TokenType;
 import lk.ijse.spring.dto.CarDTO;
+import lk.ijse.spring.dto.CarReservationDTO;
 import lk.ijse.spring.dto.CustomerDTO;
 import lk.ijse.spring.entity.Car;
 import lk.ijse.spring.repo.CarRepo;
@@ -64,6 +65,12 @@ public class CarServiceImpl implements CarService {
     @Override
     public List<CarDTO> getAllCarDetail() {
         return mapper.map(carRepo.findAll(), new TypeToken<List<CarDTO>>() {
+        }.getType());
+    }
+
+    @Override
+    public List<CarDTO> getAllTodayPickUps() {
+        return mapper.map(carRepo.getAllTodayPickUps(),new TypeToken<List<CarReservationDTO>>(){
         }.getType());
     }
 

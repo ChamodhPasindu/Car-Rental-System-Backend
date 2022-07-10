@@ -19,4 +19,7 @@ public interface CarReservationService {
 
     List<CarReservationDTO> getAllTodayReservation();
 
+    List<CarReservationDTO> getAllTodayPickUps();
+
+
 }

@@ -1,6 +1,7 @@
 package lk.ijse.spring.service;
 
 import lk.ijse.spring.dto.CarDTO;
+import lk.ijse.spring.dto.CarReservationDTO;
 
 import java.util.List;
 
@@ -14,5 +15,7 @@ public interface CarService {
     CarDTO getCarDetail(String id);
 
     List<CarDTO> getAllCarDetail();
+
+    List<CarDTO> getAllTodayPickUps();
 
 }

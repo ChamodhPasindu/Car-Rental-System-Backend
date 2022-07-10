@@ -49,7 +49,7 @@ public class ReservationController {
             e.printStackTrace();
             return new ResponseUtil(500, "Reservation Sending Filed.Try Again Latter", null);
         }
-
+        carReservation.setBank_slip_img("uploads/"+carReservation.getBank_slip_img());
         carReservationService.requestReservation(carReservation);
         return new ResponseUtil(200, "Request Send Successfully", null);
     }
@@ -71,9 +71,16 @@ public class ReservationController {
     }
 
     @GetMapping(path = "todayReservation",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseUtil getAllTodayBooking(){
+    public ResponseUtil getAllTodayReservation(){
         return new ResponseUtil(200, "Done",carReservationService.getAllTodayReservation());
     }
+
+    @GetMapping(path = "todayPickUps",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil getAllTodayPickUps(){
+        return new ResponseUtil(200, "Done",carReservationService.getAllTodayPickUps());
+    }
+
+
 
 
 

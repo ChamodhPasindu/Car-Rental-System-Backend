@@ -124,4 +124,10 @@ public class CarReservationServiceImpl implements CarReservationService {
         return mapper.map(carReservationRepo.getAllTodayReservation(),new TypeToken<List<CarReservationDTO>>(){
         }.getType());
     }
+
+    @Override
+    public List<CarReservationDTO> getAllTodayPickUps() {
+        return mapper.map(carReservationRepo.getAllTodayPickUps(),new TypeToken<List<CarReservationDTO>>(){
+        }.getType());
+    }
 }

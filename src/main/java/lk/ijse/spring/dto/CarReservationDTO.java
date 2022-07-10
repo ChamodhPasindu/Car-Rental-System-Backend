@@ -17,11 +17,11 @@ import java.sql.Time;
 public class CarReservationDTO {
     private String reserve_id;
 
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Kolkata")
     private Date reserve_date;
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Kolkata")
     private Date pick_up_date;
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Kolkata")
     private Date return_date;
     @JsonFormat(pattern = "HH:mm:ss")
     private Time pick_up_time;

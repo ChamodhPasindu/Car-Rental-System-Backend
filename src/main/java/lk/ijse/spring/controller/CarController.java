@@ -39,6 +39,11 @@ public class CarController {
             }
         }
 
+        carDTO.getCarImgDetail().setImage_1("uploads/" + carDTO.getCarImgDetail().getImage_1());
+        carDTO.getCarImgDetail().setImage_2("uploads/" + carDTO.getCarImgDetail().getImage_2());
+        carDTO.getCarImgDetail().setImage_3("uploads/" + carDTO.getCarImgDetail().getImage_3());
+        carDTO.getCarImgDetail().setImage_4("uploads/" + carDTO.getCarImgDetail().getImage_4());
+
         carService.saveCar(carDTO);
         return new ResponseUtil(200, "New Vehicle Registered Successfully...", null);
 
@@ -68,18 +73,19 @@ public class CarController {
     public ResponseUtil getCarDetail(@PathVariable String id) {
         CarDTO carDTO = carService.getCarDetail(id);
 
-        carDTO.getCarImgDetail().setImage_1("uploads/" + carDTO.getCarImgDetail().getImage_1());
-        carDTO.getCarImgDetail().setImage_2("uploads/" + carDTO.getCarImgDetail().getImage_2());
-        carDTO.getCarImgDetail().setImage_3("uploads/" + carDTO.getCarImgDetail().getImage_3());
-        carDTO.getCarImgDetail().setImage_4("uploads/" + carDTO.getCarImgDetail().getImage_4());
 
         return new ResponseUtil(200, "Done", carDTO);
     }
 
-    @GetMapping(path = "AllCarDetail", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "allCarDetail", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseUtil getAllCarDetail() {
         return new ResponseUtil(200, "Done", carService.getAllCarDetail());
     }
+
+   /* @GetMapping(path = "allAvailableCarDetail", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil getAvailableCarDetail() {
+        return new ResponseUtil(200, "Done", );
+    }*/
 
     @DeleteMapping(path = "removeCar/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseUtil deleteCarDetail(@PathVariable String id) {

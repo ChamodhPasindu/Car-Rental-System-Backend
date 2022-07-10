@@ -42,6 +42,9 @@ public class CustomerController {
             }
         }
 
+        customerDTO.setLicense_img("uploads/" + customerDTO.getLicense_img());
+        customerDTO.setNic_img("uploads/" + customerDTO.getNic_img());
+
         customerService.saveCustomer(customerDTO);
         return new ResponseUtil(200, "Registration Successfully....", null);
     }
@@ -69,8 +72,6 @@ public class CustomerController {
     public ResponseUtil getCustomerDetail(@PathVariable String id) {
         CustomerDTO customerDTO = customerService.getCustomerDetail(id);
 
-        customerDTO.setLicense_img("uploads/" + customerDTO.getLicense_img());
-        customerDTO.setNic_img("uploads/" + customerDTO.getNic_img());
 
         return new ResponseUtil(200, "Done", customerDTO);
     }

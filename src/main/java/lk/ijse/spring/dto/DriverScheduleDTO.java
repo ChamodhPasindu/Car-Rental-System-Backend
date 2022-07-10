@@ -18,9 +18,9 @@ public class DriverScheduleDTO {
 
     @JsonFormat(pattern = "HH:mm:ss")
     private Time start_time;
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Kolkata")
     private Date start_date;
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Kolkata")
     private Date end_date;
 
     private DriverDTO driver;

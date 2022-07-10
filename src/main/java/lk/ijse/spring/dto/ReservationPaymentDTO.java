@@ -16,7 +16,7 @@ import java.sql.Date;
 @ToString
 public class ReservationPaymentDTO {
     private String bill_id;
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Kolkata")
     private Date pay_date;
     private int no_of_km;
     private BigDecimal rental_fee;
