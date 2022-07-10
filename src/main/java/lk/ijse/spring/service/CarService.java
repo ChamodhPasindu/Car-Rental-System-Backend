@@ -2,6 +2,7 @@ package lk.ijse.spring.service;
 
 import lk.ijse.spring.dto.CarDTO;
 import lk.ijse.spring.dto.CarReservationDTO;
+import lk.ijse.spring.entity.Car;
 
 import java.util.List;
 
@@ -16,6 +17,17 @@ public interface CarService {
 
     List<CarDTO> getAllCarDetail();
 
-    List<CarDTO> getAllTodayPickUps();
+    List<CarDTO> getCarsUnderMaintain();
+
+    List<CarDTO> getCarsNeedMaintain();
+
+    List<CarDTO> getUnavailableCars();
+
+    List<CarDTO> getAvailableCars();
+
+
+    void setCarStatusUnavailable(String id,String status);
+
+
 
 }

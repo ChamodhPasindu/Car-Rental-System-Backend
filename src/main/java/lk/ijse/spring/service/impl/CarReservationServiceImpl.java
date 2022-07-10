@@ -100,7 +100,7 @@ public class CarReservationServiceImpl implements CarReservationService {
             carReservation.setReservation_status(status);
             carReservationRepo.save(carReservation);
         } else {
-            throw new RuntimeException("Update Failed,This Reservation Previous Record is Missing.Try Again..!");
+            throw new RuntimeException("Can't Review This Reservation,This Reservation Previous Record is Missing.Try Again..!");
         }
     }
 

@@ -68,12 +68,16 @@ public class CarController {
         return new ResponseUtil(200, "Update Vehicle Details Successfully...", null);
     }
 
+    @PutMapping(params = {"id", "status"}, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil updateCarStatusForUnavailable(@RequestParam String id, @RequestParam String status) {
+        carService.setCarStatusUnavailable(id, status);
+        return new ResponseUtil(200, "Set Car" + id + " As " + status, null);
+    }
+
 
     @GetMapping(path = "carDetail/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseUtil getCarDetail(@PathVariable String id) {
         CarDTO carDTO = carService.getCarDetail(id);
-
-
         return new ResponseUtil(200, "Done", carDTO);
     }
 
@@ -82,10 +86,25 @@ public class CarController {
         return new ResponseUtil(200, "Done", carService.getAllCarDetail());
     }
 
-   /* @GetMapping(path = "allAvailableCarDetail", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseUtil getAvailableCarDetail() {
-        return new ResponseUtil(200, "Done", );
-    }*/
+    @GetMapping(path = "carsUnderMaintain", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil getCarsUnderMaintain() {
+        return new ResponseUtil(200, "Done", carService.getCarsUnderMaintain());
+    }
+
+    @GetMapping(path = "carsNeedMaintain", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil getCarsNeedMaintain() {
+        return new ResponseUtil(200, "Done", carService.getCarsNeedMaintain());
+    }
+
+    @GetMapping(path = "unavailableCars", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil getUnavailableCars() {
+        return new ResponseUtil(200, "Done", carService.getUnavailableCars());
+    }
+
+    @GetMapping(path = "AvailableCars", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil getAvailableCars() {
+        return new ResponseUtil(200, "Done", carService.getAvailableCars());
+    }
 
     @DeleteMapping(path = "removeCar/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseUtil deleteCarDetail(@PathVariable String id) {
