@@ -38,7 +38,7 @@ public class ReservationController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseUtil requestReservation(@RequestPart("reservation") CarReservationDTO carReservationDTO, @RequestPart("file") MultipartFile file) {
+    public ResponseUtil requestReservation(@RequestPart("reservation") CarReservationDTO carReservation, @RequestPart("file") MultipartFile file) {
 
         try {
             String projectPath = new File(this.getClass().getProtectionDomain().getCodeSource().getLocation().toURI()).getParentFile().getParentFile().getAbsolutePath();
@@ -50,25 +50,14 @@ public class ReservationController {
             return new ResponseUtil(500, "Reservation Sending Filed.Try Again Latter", null);
         }
 
-        if (carReservationDTO.getDriver_status().equals("YES")) {
-
-            DriverDTO driverDTO = driverService.selectDriverForReservation(
-                    carReservationDTO.getPick_up_date(),
-                    carReservationDTO.getReturn_date());
-
-            DriverScheduleDTO driverScheduleDTO = new DriverScheduleDTO(
-                    carReservationDTO.getPick_up_time(),
-                    carReservationDTO.getPick_up_date(),
-                    carReservationDTO.getReturn_date(),
-                    driverDTO,
-                    carReservationDTO);
-
-            driverScheduleService.makeSchedule(driverScheduleDTO);
-
-        } else {
-            carReservationService.requestReservation(carReservationDTO);
-        }
+        carReservationService.requestReservation(carReservation);
         return new ResponseUtil(200, "Request Send Successfully", null);
+    }
+
+    @PutMapping(params = {"id","status"},produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil updateReservationStatus(@RequestParam String id,@RequestParam String status) {
+        carReservationService.updateReservationStatus(id,status);
+        return new ResponseUtil(200, "Reservation Updated Successfully", null);
     }
 
     @GetMapping(path = "pendingReservation", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -81,10 +70,6 @@ public class ReservationController {
         return new ResponseUtil(200, "Done", carReservationService.getReservationDetail(id));
     }
 
-    @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseUtil updateReservation(@RequestBody CarReservationDTO carReservationDTO) {
-        carReservationService.updateReservationDetail(carReservationDTO);
-        return new ResponseUtil(200, "Reservation Updated Successfully", null);
-    }
+
 
 }

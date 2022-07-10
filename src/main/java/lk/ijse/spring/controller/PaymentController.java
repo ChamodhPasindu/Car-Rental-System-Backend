@@ -18,7 +18,7 @@ public class PaymentController {
     ReservationPaymentService reservationPaymentService;
 
     @GetMapping(path = "generateBillId", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseUtil generateReservationId() {
+    public ResponseUtil generatePaymentId() {
         return new ResponseUtil(200, "Done", reservationPaymentService.generateReservationBillIdId());
     }
 

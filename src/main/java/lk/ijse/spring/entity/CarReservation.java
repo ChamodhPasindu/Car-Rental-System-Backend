@@ -9,7 +9,7 @@ import java.sql.Time;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
+@Data
 @ToString
 @Entity(name = "car_reservation")
 public class CarReservation {
