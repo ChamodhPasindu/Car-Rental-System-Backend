@@ -1,6 +1,8 @@
 package lk.ijse.spring.controller;
 
 import lk.ijse.spring.dto.CustomerDTO;
+import lk.ijse.spring.repo.CarReservationRepo;
+import lk.ijse.spring.service.CarReservationService;
 import lk.ijse.spring.service.CustomerService;
 
 import lk.ijse.spring.util.ResponseUtil;
@@ -22,6 +24,9 @@ public class CustomerController {
 
     @Autowired
     CustomerService customerService;
+
+    @Autowired
+    CarReservationService carReservationService;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
@@ -84,6 +89,13 @@ public class CustomerController {
     @GetMapping(path = "todayRegisteredUsers", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseUtil getTodayRegisteredCustomers() {
         return new ResponseUtil(200, "Done", customerService.getTodayRegisteredCustomers());
+    }
+
+    //This can be use for get customer reservation history and upcoming reservations.
+    // status="Done" or "Accept"
+    @GetMapping(path = "customerReservationByStatus",params = {"id","status"}, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil getCustomerReservationByStatus(@RequestParam String id,@RequestParam String status) {
+        return new ResponseUtil(200, "Done", carReservationService.getCustomerReservationByStatus(id,status));
     }
 
     @DeleteMapping(path = "delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)

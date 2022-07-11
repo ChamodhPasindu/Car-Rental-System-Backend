@@ -19,4 +19,5 @@ public interface CustomerService {
 
     List<CustomerDTO> getTodayRegisteredCustomers();
 
+
 }

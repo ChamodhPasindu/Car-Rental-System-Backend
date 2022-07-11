@@ -79,4 +79,5 @@ public class CustomerServiceImpl implements CustomerService {
         return mapper.map(customerRepo.getTodayRegisteredCustomers(), new TypeToken<List<CustomerDTO>>() {
         }.getType());
     }
+
 }

@@ -1,6 +1,7 @@
 package lk.ijse.spring.service.impl;
 
 import lk.ijse.spring.dto.CarReservationDTO;
+import lk.ijse.spring.dto.CustomerDTO;
 import lk.ijse.spring.dto.DriverDTO;
 import lk.ijse.spring.dto.DriverScheduleDTO;
 import lk.ijse.spring.entity.*;
@@ -128,6 +129,13 @@ public class CarReservationServiceImpl implements CarReservationService {
     @Override
     public List<CarReservationDTO> getAllTodayPickUps() {
         return mapper.map(carReservationRepo.getAllTodayPickUps(), new TypeToken<List<CarReservationDTO>>() {
+        }.getType());
+    }
+
+
+    @Override
+    public List<CarReservationDTO> getCustomerReservationByStatus(String id,String status) {
+        return mapper.map(carReservationRepo.getCustomerReservationByStatus(id,status), new TypeToken<List<CarReservationDTO>>() {
         }.getType());
     }
 }

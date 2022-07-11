@@ -1,6 +1,7 @@
 package lk.ijse.spring.repo;
 
 import lk.ijse.spring.entity.CarReservation;
+import lk.ijse.spring.entity.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -19,6 +20,9 @@ public interface CarReservationRepo extends JpaRepository<CarReservation,String>
 
     @Query(value = "SELECT * FROM car_reservation WHERE pick_up_date=current_date()",nativeQuery = true)
     List<CarReservation> getAllTodayPickUps();
+
+    @Query(value = "SELECT * FROM car_reservation WHERE customer_nic=?1 AND reservation_status=?2",nativeQuery = true)
+    List<CarReservation> getCustomerReservationByStatus(String id,String status);
 
 
 }

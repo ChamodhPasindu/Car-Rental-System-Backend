@@ -57,7 +57,7 @@ public class ReservationController {
     @PutMapping(params = {"id","status"},produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseUtil updateReservationStatus(@RequestParam String id,@RequestParam String status) {
         carReservationService.updateReservationStatus(id,status);
-        return new ResponseUtil(200, status + "Request Successfully", null);
+        return new ResponseUtil(200, status + " Request Successfully", null);
     }
 
     @GetMapping(path = "pendingReservation", produces = MediaType.APPLICATION_JSON_VALUE)
