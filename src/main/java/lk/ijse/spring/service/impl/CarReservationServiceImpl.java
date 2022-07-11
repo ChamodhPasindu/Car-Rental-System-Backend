@@ -95,11 +95,21 @@ public class CarReservationServiceImpl implements CarReservationService {
     }
 
     @Override
-    public void updateReservationStatus(String id, String status) {
-        if (carReservationRepo.existsById(id)) {
-            CarReservation carReservation = carReservationRepo.findById(id).get();
-            carReservation.setReservation_status(status);
-            carReservationRepo.save(carReservation);
+    public void updateReservationStatus(String reserve_id, String driver_id, String status) {
+        if (carReservationRepo.existsById(reserve_id)) {
+
+            CarReservation carReservation = carReservationRepo.findById(reserve_id).get();
+
+            if (!driver_id.isEmpty()) {
+                Driver driver = driverRepo.findById(driver_id).get();
+                DriverSchedule driverSchedule = driverScheduleRepo.getDriverSchedulesByReservationId(reserve_id);
+                driverSchedule.setDriver(driver);
+                driverSchedule.setCarReservation(carReservation);
+            } else {
+                carReservation.setReservation_status(status);
+                carReservationRepo.save(carReservation);
+            }
+
         } else {
             throw new RuntimeException("Can't Review This Reservation,This Reservation Previous Record is Missing.Try Again..!");
         }
@@ -134,8 +144,8 @@ public class CarReservationServiceImpl implements CarReservationService {
 
 
     @Override
-    public List<CarReservationDTO> getCustomerReservationByStatus(String id,String status) {
-        return mapper.map(carReservationRepo.getCustomerReservationByStatus(id,status), new TypeToken<List<CarReservationDTO>>() {
+    public List<CarReservationDTO> getCustomerReservationByStatus(String id, String status) {
+        return mapper.map(carReservationRepo.getCustomerReservationByStatus(id, status), new TypeToken<List<CarReservationDTO>>() {
         }.getType());
     }
 }

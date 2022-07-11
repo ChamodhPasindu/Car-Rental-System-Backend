@@ -54,9 +54,9 @@ public class ReservationController {
         return new ResponseUtil(200, "Request Send Successfully", null);
     }
 
-    @PutMapping(params = {"id","status"},produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseUtil updateReservationStatus(@RequestParam String id,@RequestParam String status) {
-        carReservationService.updateReservationStatus(id,status);
+    @PutMapping(params = {"reserve_id","driver_id","status"},produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil updateReservationStatus(@RequestParam String reserve_id,@RequestParam String driver_id,@RequestParam String status) {
+        carReservationService.updateReservationStatus(reserve_id,driver_id,status);
         return new ResponseUtil(200, status + " Request Successfully", null);
     }
 
