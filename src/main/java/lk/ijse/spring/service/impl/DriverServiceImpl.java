@@ -66,14 +66,14 @@ public class DriverServiceImpl implements DriverService {
         }.getType());
     }
 
-
     @Override
-    public DriverDTO selectDriverForReservation(Date pick_date, Date return_date) {
-        Driver driver = driverRepo.selectDriverForReservation(pick_date, return_date);
-        if (!(driver == null)) {
-            return mapper.map(driver, DriverDTO.class);
-        } else {
-            throw new RuntimeException("Sorry,Drivers are not Available in This Moment..");
+    public DriverDTO getTodayAvailableAndOccupiedDrivers(String status) {
+        switch (status) {
+            case "Available":return mapper.map(driverRepo.getTodayAvailableDrivers(),DriverDTO.class);
+            case "Occupied":return mapper.map(driverRepo.getTodayOccupiedDrivers(),DriverDTO.class);
+            default:throw new RuntimeException("Not select status for show record of Available or Occupied drivers");
         }
     }
+
+
 }

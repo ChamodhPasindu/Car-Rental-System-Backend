@@ -18,7 +18,6 @@ public interface DriverService {
 
     List<DriverDTO> getAllDriverDetail();
 
-    DriverDTO selectDriverForReservation(Date pick_date, Date return_date);
-
+    DriverDTO getTodayAvailableAndOccupiedDrivers(String status);
 
 }

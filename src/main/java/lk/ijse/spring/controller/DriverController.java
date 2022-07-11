@@ -1,6 +1,7 @@
 package lk.ijse.spring.controller;
 
 import lk.ijse.spring.dto.DriverDTO;
+import lk.ijse.spring.service.DriverScheduleService;
 import lk.ijse.spring.service.DriverService;
 import lk.ijse.spring.util.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,9 @@ public class DriverController {
 
     @Autowired
     DriverService driverService;
+
+    @Autowired
+    DriverScheduleService driverScheduleService;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -44,4 +48,16 @@ public class DriverController {
     public ResponseUtil getAllDriverDetail() {
         return new ResponseUtil(200, "Done", driverService.getAllDriverDetail());
     }
+
+    @GetMapping(path = "driverScheduleByDate",params = {"start_date","end_date"},produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil getDriverScheduleByDate(@RequestParam String start_date,@RequestParam String end_date){
+        return new ResponseUtil(200, "Done", driverScheduleService.getDriverSchedulesByDate(start_date,end_date));
+    }
+
+    @GetMapping(path = "todayAvailableAndOccupiedDrivers/{status}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil getTodayAvailableAndOccupiedDrivers(@PathVariable String status){
+        return new ResponseUtil(200, "Done", driverService.getTodayAvailableAndOccupiedDrivers(status));
+    }
+
+
 }

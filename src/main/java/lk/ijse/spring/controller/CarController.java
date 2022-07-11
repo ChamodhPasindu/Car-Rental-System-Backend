@@ -96,14 +96,10 @@ public class CarController {
         return new ResponseUtil(200, "Done", carService.getCarsNeedMaintain());
     }
 
-    @GetMapping(path = "unavailableCars", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseUtil getUnavailableCars() {
-        return new ResponseUtil(200, "Done", carService.getUnavailableCars());
-    }
-
-    @GetMapping(path = "availableCars", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseUtil getAvailableCars() {
-        return new ResponseUtil(200, "Done", carService.getAvailableCars());
+    //sent status as Available or Unavailable,Then check it with cars
+    @GetMapping(path = "unavailableOrUnavailableCarsByStatus/{status}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil getUnavailableOrAvailableCars(@PathVariable String status) {
+        return new ResponseUtil(200, "Done", carService.getUnavailableOrAvailableCarsByStatus(status));
     }
 
     //check available and rental vehicles by giving gap of dates

@@ -21,9 +21,7 @@ public interface CarService {
 
     List<CarDTO> getCarsNeedMaintain();
 
-    List<CarDTO> getUnavailableCars();
-
-    List<CarDTO> getAvailableCars();
+    List<CarDTO> getUnavailableOrAvailableCarsByStatus(String status);
 
     List<CarDTO> getAvailableAndRentalCarsForReservation(String pick_up_date,String return_date,String status);
 

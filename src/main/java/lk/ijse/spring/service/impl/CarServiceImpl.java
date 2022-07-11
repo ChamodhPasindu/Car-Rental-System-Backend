@@ -81,16 +81,11 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public List<CarDTO> getUnavailableCars() {
-        return mapper.map(carRepo.getUnavailableCars(), new TypeToken<List<CarDTO>>() {
+    public List<CarDTO> getUnavailableOrAvailableCarsByStatus(String status) {
+        return mapper.map(carRepo.getUnavailableOrAvailableCarsByStatus(status), new TypeToken<List<CarDTO>>() {
         }.getType());
     }
 
-    @Override
-    public List<CarDTO> getAvailableCars() {
-        return mapper.map(carRepo.getAvailableCars(), new TypeToken<List<CarDTO>>() {
-        }.getType());
-    }
 
     @Override
     public List<CarDTO> getAvailableAndRentalCarsForReservation(String pick_up_date, String return_date, String status) {

@@ -67,8 +67,8 @@ public class CarReservationServiceImpl implements CarReservationService {
 
             Customer customer = customerRepo.findById(carReservationDTO.getCustomer().getNic()).get();
             Car car = carRepo.findById(carReservationDTO.getCar().getRegistration_no()).get();
-            carReservation.setCustomer(customer);
 
+            carReservation.setCustomer(customer);
             carReservation.setCar(car);
 
             if (carReservationDTO.getDriver_status().equals("YES")) {
