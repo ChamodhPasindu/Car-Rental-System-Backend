@@ -81,14 +81,14 @@ public class CustomerController {
         return new ResponseUtil(200, "Done", customerService.getAllCustomerDetail());
     }
 
-    @GetMapping(path = "todayRegisteredUsers",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseUtil getTodayRegisteredCustomers(){
-        return new ResponseUtil(200,"Done",customerService.getTodayRegisteredCustomers());
+    @GetMapping(path = "todayRegisteredUsers", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil getTodayRegisteredCustomers() {
+        return new ResponseUtil(200, "Done", customerService.getTodayRegisteredCustomers());
     }
 
-    @DeleteMapping(path = "delete/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseUtil deleteCustomer(@PathVariable String id){
+    @DeleteMapping(path = "delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil deleteCustomer(@PathVariable String id) {
         customerService.deleteCustomer(id);
-        return new ResponseUtil(200,"Delete Your Account Successfully",null);
+        return new ResponseUtil(200, "Delete Your Account Successfully", null);
     }
 }

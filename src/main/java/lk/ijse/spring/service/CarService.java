@@ -25,8 +25,9 @@ public interface CarService {
 
     List<CarDTO> getAvailableCars();
 
+    List<CarDTO> getAvailableAndRentalCarsForReservation(String pick_up_date,String return_date,String status);
 
-    void setCarStatusUnavailable(String id,String status);
+    void setCarStatusUnavailableOrAvailable(String id,String status);
 
 
 

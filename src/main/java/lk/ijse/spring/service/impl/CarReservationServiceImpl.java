@@ -85,7 +85,7 @@ public class CarReservationServiceImpl implements CarReservationService {
 
                 driverScheduleRepo.save(mapper.map(driverScheduleDTO, DriverSchedule.class));
 
-            }else {
+            } else {
                 carReservationRepo.save(carReservation);
             }
         } else {
@@ -121,13 +121,13 @@ public class CarReservationServiceImpl implements CarReservationService {
 
     @Override
     public List<CarReservationDTO> getAllTodayReservation() {
-        return mapper.map(carReservationRepo.getAllTodayReservation(),new TypeToken<List<CarReservationDTO>>(){
+        return mapper.map(carReservationRepo.getAllTodayReservation(), new TypeToken<List<CarReservationDTO>>() {
         }.getType());
     }
 
     @Override
     public List<CarReservationDTO> getAllTodayPickUps() {
-        return mapper.map(carReservationRepo.getAllTodayPickUps(),new TypeToken<List<CarReservationDTO>>(){
+        return mapper.map(carReservationRepo.getAllTodayPickUps(), new TypeToken<List<CarReservationDTO>>() {
         }.getType());
     }
 }

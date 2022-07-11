@@ -25,7 +25,7 @@ public class CarServiceImpl implements CarService {
 
     @Autowired
     ModelMapper mapper;
-    
+
     @Override
     public void saveCar(CarDTO carDTO) {
         if (!carRepo.existsById(carDTO.getRegistration_no())) {
@@ -70,35 +70,60 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public List<CarDTO> getCarsUnderMaintain() {
-        return mapper.map(carRepo.getCarsUnderMaintain(),new TypeToken<List<CarDTO>>(){
+        return mapper.map(carRepo.getCarsUnderMaintain(), new TypeToken<List<CarDTO>>() {
         }.getType());
     }
 
     @Override
     public List<CarDTO> getCarsNeedMaintain() {
-        return mapper.map(carRepo.getCarsNeedMaintain(),new TypeToken<List<CarDTO>>(){
+        return mapper.map(carRepo.getCarsNeedMaintain(), new TypeToken<List<CarDTO>>() {
         }.getType());
     }
 
     @Override
     public List<CarDTO> getUnavailableCars() {
-        return mapper.map(carRepo.getUnavailableCars(),new TypeToken<List<CarDTO>>(){
+        return mapper.map(carRepo.getUnavailableCars(), new TypeToken<List<CarDTO>>() {
         }.getType());
     }
 
     @Override
     public List<CarDTO> getAvailableCars() {
-        return mapper.map(carRepo.getAvailableCars(),new TypeToken<List<CarDTO>>(){
+        return mapper.map(carRepo.getAvailableCars(), new TypeToken<List<CarDTO>>() {
         }.getType());
     }
 
     @Override
-    public void setCarStatusUnavailable(String id,String status) {
-        if (carRepo.existsById(id)){
+    public List<CarDTO> getAvailableAndRentalCarsForReservation(String pick_up_date, String return_date, String status) {
+        if ((pick_up_date.isEmpty() || return_date.isEmpty()) && pick_up_date.isEmpty()) {
+            throw new RuntimeException("Please Select date for Show Available Vehicles.!");
+        }
+        //check the status for filter results of cars as rental and available
+        if (status.equals("Available")) {
+            if (return_date.isEmpty()) {
+                return mapper.map(carRepo.getAvailableCarsForReservationOnDay(pick_up_date), new TypeToken<List<CarDTO>>() {
+                }.getType());
+            } else {
+                return mapper.map(carRepo.getAvailableCarsForReservation(pick_up_date, return_date), new TypeToken<List<CarDTO>>() {
+                }.getType());
+            }
+        } else {
+            if (return_date.isEmpty()) {
+                return mapper.map(carRepo.getRentalCarsOnDay(pick_up_date), new TypeToken<List<CarDTO>>() {
+                }.getType());
+            } else {
+                return mapper.map(carRepo.getRentalCars(pick_up_date, return_date), new TypeToken<List<CarDTO>>() {
+                }.getType());
+            }
+        }
+    }
+
+    @Override
+    public void setCarStatusUnavailableOrAvailable(String id, String status) {
+        if (carRepo.existsById(id)) {
             Car car = carRepo.findById(id).get();
             car.setStatus(status);
             carRepo.save(car);
-        }else {
+        } else {
             throw new RuntimeException("Can't Get Details.!  This Vehicle's Previous Record is Missing..Add Again");
 
         }

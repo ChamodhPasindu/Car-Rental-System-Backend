@@ -68,12 +68,12 @@ public class CarController {
         return new ResponseUtil(200, "Update Vehicle Details Successfully...", null);
     }
 
+    //send status of car as available or unavailable by admin.check the status with given id and save
     @PutMapping(params = {"id", "status"}, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseUtil updateCarStatusForUnavailable(@RequestParam String id, @RequestParam String status) {
-        carService.setCarStatusUnavailable(id, status);
-        return new ResponseUtil(200, "Set Car" + id + " As " + status, null);
+    public ResponseUtil updateCarStatusForUnavailableOrAvailable(@RequestParam String id, @RequestParam String status) {
+        carService.setCarStatusUnavailableOrAvailable(id, status);
+        return new ResponseUtil(200, "Set Car " + id + " As " + status, null);
     }
-
 
     @GetMapping(path = "carDetail/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseUtil getCarDetail(@PathVariable String id) {
@@ -101,9 +101,15 @@ public class CarController {
         return new ResponseUtil(200, "Done", carService.getUnavailableCars());
     }
 
-    @GetMapping(path = "AvailableCars", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "availableCars", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseUtil getAvailableCars() {
         return new ResponseUtil(200, "Done", carService.getAvailableCars());
+    }
+
+    //check available and rental vehicles by giving gap of dates
+    @GetMapping(path = "availableOrRentalCarsByDate", params = {"pick_up_date", "return_date", "status"}, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil getAvailableAndRentalCarsForReservation(@RequestParam String pick_up_date, @RequestParam String return_date, @RequestParam String status) {
+        return new ResponseUtil(200, "Done", carService.getAvailableAndRentalCarsForReservation(pick_up_date, return_date, status));
     }
 
     @DeleteMapping(path = "removeCar/{id}", produces = MediaType.APPLICATION_JSON_VALUE)

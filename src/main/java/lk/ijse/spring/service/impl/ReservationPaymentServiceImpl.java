@@ -60,7 +60,7 @@ public class ReservationPaymentServiceImpl implements ReservationPaymentService 
         if (!reservationPaymentRepo.existsById(reservationPaymentDTO.getBill_id())) {
             CarReservation carReservation = carReservationRepo.findById(reservationPaymentDTO.getCarReservation().getReserve_id()).get();
             ReservationPayment reservationPayment = mapper.map(reservationPaymentDTO, ReservationPayment.class);
-            carReservation.getCar().setMileage(carReservation.getCar().getMileage()+reservationPayment.getNo_of_km());
+            carReservation.getCar().setMileage(carReservation.getCar().getMileage() + reservationPayment.getNo_of_km());
             reservationPayment.setCarReservation(carReservation);
             reservationPaymentRepo.save(reservationPayment);
         } else {

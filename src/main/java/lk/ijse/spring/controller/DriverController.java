@@ -40,7 +40,7 @@ public class DriverController {
         return new ResponseUtil(200, "Done", driverService.getDriverDetail(id));
     }
 
-    @GetMapping(path = "allDriverDetail",produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "allDriverDetail", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseUtil getAllDriverDetail() {
         return new ResponseUtil(200, "Done", driverService.getAllDriverDetail());
     }

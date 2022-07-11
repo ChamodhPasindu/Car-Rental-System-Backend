@@ -42,9 +42,9 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public void deleteCustomer(String id) {
-        if (customerRepo.existsById(id)){
+        if (customerRepo.existsById(id)) {
             customerRepo.deleteById(id);
-        }else {
+        } else {
             throw new RuntimeException("Something Wrong,Cant Delete Your Details.Please Contact Admin");
         }
     }
@@ -76,7 +76,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public List<CustomerDTO> getTodayRegisteredCustomers() {
-        return mapper.map(customerRepo.getTodayRegisteredCustomers(),new TypeToken<List<CustomerDTO>>(){
+        return mapper.map(customerRepo.getTodayRegisteredCustomers(), new TypeToken<List<CustomerDTO>>() {
         }.getType());
     }
 }
