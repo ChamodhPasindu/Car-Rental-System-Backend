@@ -1,0 +1,20 @@
+package lk.easycar.spring.service;
+
+import lk.easycar.spring.dto.DriverDTO;
+
+import java.util.List;
+
+public interface DriverService {
+    void saveDriver(DriverDTO driverDTO);
+
+    void UpdateDriver(DriverDTO driverDTO);
+
+    void deleteDriver(String id);
+
+    DriverDTO getDriverDetail(String id);
+
+    List<DriverDTO> getAllDriverDetail();
+
+    DriverDTO getTodayAvailableAndOccupiedDrivers(String status);
+
+}
