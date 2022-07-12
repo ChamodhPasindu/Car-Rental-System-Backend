@@ -49,15 +49,19 @@ public class DriverController {
         return new ResponseUtil(200, "Done", driverService.getAllDriverDetail());
     }
 
-    @GetMapping(path = "driverScheduleByDate",params = {"start_date","end_date"},produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseUtil getDriverScheduleByDate(@RequestParam String start_date,@RequestParam String end_date){
-        return new ResponseUtil(200, "Done", driverScheduleService.getDriverSchedulesByDate(start_date,end_date));
+    @GetMapping(path = "driverScheduleByDate", params = {"start_date", "end_date"}, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil getDriverScheduleByDate(@RequestParam String start_date, @RequestParam String end_date) {
+        return new ResponseUtil(200, "Done", driverScheduleService.getDriverSchedulesByDate(start_date, end_date));
     }
 
-    @GetMapping(path = "todayAvailableAndOccupiedDrivers/{status}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseUtil getTodayAvailableAndOccupiedDrivers(@PathVariable String status){
+    @GetMapping(path = "todayAvailableAndOccupiedDrivers/{status}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil getTodayAvailableAndOccupiedDrivers(@PathVariable String status) {
         return new ResponseUtil(200, "Done", driverService.getTodayAvailableAndOccupiedDrivers(status));
     }
 
+    @GetMapping(path = "weeklyAndAnnuallyScheduleByDriver", params = {"id", "date"}, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil weeklyScheduleByDriver(@RequestParam String id, @RequestParam String date) {
+        return new ResponseUtil(200, "Done", driverScheduleService.getDriverWeeklyScheduleByDate(id,date));
+    }
 
 }

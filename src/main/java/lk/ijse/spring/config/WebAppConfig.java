@@ -18,6 +18,7 @@ public class WebAppConfig implements WebMvcConfigurer {
         return new ModelMapper();
     }
 
+    @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/uploads/**").addResourceLocations("/uploads/");
     }

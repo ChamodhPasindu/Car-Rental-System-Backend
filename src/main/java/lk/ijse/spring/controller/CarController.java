@@ -97,7 +97,7 @@ public class CarController {
     }
 
     //sent status as Available or Unavailable,Then check it with cars
-    @GetMapping(path = "unavailableOrUnavailableCarsByStatus/{status}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "unavailableOrAvailableCarsByStatus/{status}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseUtil getUnavailableOrAvailableCars(@PathVariable String status) {
         return new ResponseUtil(200, "Done", carService.getUnavailableOrAvailableCarsByStatus(status));
     }
