@@ -2,6 +2,7 @@ package lk.ijse.spring.service.impl;
 
 import lk.ijse.spring.dto.DriverScheduleDTO;
 import lk.ijse.spring.entity.DriverSchedule;
+import lk.ijse.spring.entity.ReservationPayment;
 import lk.ijse.spring.repo.DriverScheduleRepo;
 import lk.ijse.spring.service.DriverScheduleService;
 import lk.ijse.spring.util.DateFinder;
@@ -32,24 +33,23 @@ public class DriverScheduleServiceImpl implements DriverScheduleService {
 
     @Override
     public List<DriverScheduleDTO> getDriverWeeklyScheduleByDate(String driver_id, String date_rage) {
-        System.out.println(date_rage);
-        if (date_rage.equals("Week")) {
-            System.out.println("week");
+        if (date_rage.equals("Monthly")) {
             LocalDate monthStartDate = DateFinder.getMonthStartDate();
             LocalDate monthEndDate = DateFinder.getMonthEndDate();
-            List<DriverSchedule> schedule = driverScheduleRepo.getDriverWeeklyScheduleByDate(driver_id, monthStartDate, monthEndDate);
-            if (!(schedule == null)) {
+
+            List<DriverSchedule> schedule = driverScheduleRepo.getDriverWeeklyOrMonthlyScheduleByDate(driver_id, monthStartDate, monthEndDate);
+            if (!schedule.isEmpty()) {
                 return mapper.map(schedule, new TypeToken<List<DriverScheduleDTO>>() {
                 }.getType());
             } else {
-                throw new RuntimeException("You Have Not any Rides In this Week ");
+                throw new RuntimeException("You Have Not any Rides In this Month ");
             }
-        } else if (date_rage.equals("Month")) {
-            System.out.println("Month");
+        } else if (date_rage.equals("Weekly")) {
             LocalDate weekStartDate = DateFinder.getWeekStartDate();
             LocalDate weekEndDate = DateFinder.getWeekEndDate();
-            List<DriverSchedule> schedule = driverScheduleRepo.getDriverWeeklyScheduleByDate(driver_id, weekStartDate, weekEndDate);
-            if (!(schedule == null)) {
+            System.out.println(weekStartDate+" "+weekEndDate);
+            List<DriverSchedule> schedule = driverScheduleRepo.getDriverWeeklyOrMonthlyScheduleByDate(driver_id, weekStartDate, weekEndDate);
+            if (!schedule.isEmpty()) {
                 return mapper.map(schedule, new TypeToken<List<DriverScheduleDTO>>() {
                 }.getType());
             } else {

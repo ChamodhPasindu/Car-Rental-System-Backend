@@ -9,11 +9,16 @@ import lk.ijse.spring.repo.CarRepo;
 import lk.ijse.spring.repo.CarReservationRepo;
 import lk.ijse.spring.repo.ReservationPaymentRepo;
 import lk.ijse.spring.service.ReservationPaymentService;
+import lk.ijse.spring.util.DateFinder;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Optional;
 
 @Transactional
@@ -68,4 +73,61 @@ public class ReservationPaymentServiceImpl implements ReservationPaymentService 
             throw new RuntimeException("Payment Already Done");
         }
     }
+
+    @Override
+    public List<ReservationPayment> getIncomeByDate(String type,String start_date,String end_date) {
+        if (type.equals("Daily")){
+            LocalDate today = DateFinder.getToday();
+
+            List<ReservationPayment> dailyIncome = reservationPaymentRepo.getDailyIncome(today);
+            if (!(dailyIncome ==null)){
+                return mapper.map(dailyIncome,new TypeToken<List<ReservationPaymentDTO>>(){}.getType());
+            }else {
+                throw new RuntimeException("Today have No Any Transaction had Been");
+            }
+
+        }else if (type.equals("Weekly")){
+            LocalDate monthStartDate = DateFinder.getMonthStartDate();
+            LocalDate monthEndDate = DateFinder.getMonthEndDate();
+
+            List<ReservationPayment> weeklyIncome = reservationPaymentRepo.getIncomeByDate(monthStartDate, monthEndDate);
+            if (!(weeklyIncome ==null)){
+                return mapper.map(weeklyIncome,new TypeToken<List<ReservationPaymentDTO>>(){}.getType());
+            }else {
+                throw new RuntimeException("This Week have No Any Transaction had Been");
+            }
+        } else if (type.equals("Monthly")) {
+            LocalDate monthStartDate = DateFinder.getMonthStartDate();
+            LocalDate monthEndDate = DateFinder.getMonthEndDate();
+
+            List<ReservationPayment> monthlyIncome = reservationPaymentRepo.getIncomeByDate(monthStartDate, monthEndDate);
+            if (!(monthlyIncome ==null)){
+                return mapper.map(monthlyIncome,new TypeToken<List<ReservationPaymentDTO>>(){}.getType());
+            }else {
+                throw new RuntimeException("This Month have No Any Transaction had Been");
+            }
+        } else if (type.equals("Yearly")) {
+            LocalDate yearStartDate = DateFinder.getYearStartDate();
+            LocalDate yearEndDate = DateFinder.getYearEndDate();
+
+            List<ReservationPayment> yearlyIncome = reservationPaymentRepo.getIncomeByDate(yearStartDate, yearEndDate);
+            if (!(yearlyIncome ==null)){
+                return mapper.map(yearlyIncome,new TypeToken<List<ReservationPaymentDTO>>(){}.getType());
+            }else {
+                throw new RuntimeException("This Yearly have No Any Transaction had Been");
+            }
+        }else {
+            LocalDate startDate = DateFinder.dateStringToLocalDate(start_date);
+            LocalDate endDate = DateFinder.dateStringToLocalDate(end_date);
+
+            List<ReservationPayment> incomeByDate = reservationPaymentRepo.getIncomeByDate(startDate, endDate);
+            if (!(incomeByDate ==null)){
+                return mapper.map(incomeByDate,new TypeToken<List<ReservationPaymentDTO>>(){}.getType());
+            }else {
+                throw new RuntimeException("This Dates have No Any Transaction had Been");
+            }
+        }
+    }
+
+
 }

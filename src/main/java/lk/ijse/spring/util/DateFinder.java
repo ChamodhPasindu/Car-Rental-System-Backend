@@ -1,7 +1,10 @@
 package lk.ijse.spring.util;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import static java.time.temporal.TemporalAdjusters.firstDayOfYear;
 import static java.time.temporal.TemporalAdjusters.lastDayOfYear;
@@ -39,5 +42,15 @@ public class DateFinder {
 
     public static LocalDate getYearEndDate() {
         return today.with(lastDayOfYear());
+    }
+
+    public static LocalDate getToday(){
+        return today;
+
+    }
+
+    public static LocalDate dateStringToLocalDate(String date){
+        DateTimeFormatter pattern = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        return LocalDate.parse(date, pattern);
     }
 }
