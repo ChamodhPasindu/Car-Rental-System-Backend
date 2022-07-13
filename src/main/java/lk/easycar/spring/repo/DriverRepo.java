@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import java.sql.Date;
 
 public interface DriverRepo extends JpaRepository<Driver,String> {
+    @Query(value = "SELECT * FROM driver WHERE user_name=?1 AND password=?2",nativeQuery = true)
+    Driver checkDriverLogIn(String name, String password);
 
     @Query(value = "SELECT * FROM driver WHERE nic NOT IN (SELECT DISTINCT driver_nic FROM driver_schedule WHERE start_date BETWEEN ?1 AND ?2 OR end_date BETWEEN ?1 AND ?2)ORDER BY RAND() DESC limit 1" ,nativeQuery = true)
     Driver selectDriverForReservation(Date pick_date, Date return_date);

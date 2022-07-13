@@ -20,4 +20,6 @@ public class DriverDTO {
     private String mobile;
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Kolkata")
     private Date join_date;
+    private String user_name;
+    private String password;
 }

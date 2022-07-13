@@ -1,10 +1,13 @@
 package lk.easycar.spring.service;
 
+import lk.easycar.spring.dto.AdminDTO;
 import lk.easycar.spring.dto.DriverDTO;
 
 import java.util.List;
 
 public interface DriverService {
+    DriverDTO checkDriverLogIn(String name, String password);
+
     void saveDriver(DriverDTO driverDTO);
 
     void UpdateDriver(DriverDTO driverDTO);

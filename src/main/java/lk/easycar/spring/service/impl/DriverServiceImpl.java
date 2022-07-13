@@ -1,6 +1,8 @@
 package lk.easycar.spring.service.impl;
 
+import lk.easycar.spring.dto.AdminDTO;
 import lk.easycar.spring.dto.DriverDTO;
+import lk.easycar.spring.entity.Admin;
 import lk.easycar.spring.entity.Driver;
 import lk.easycar.spring.repo.DriverRepo;
 import lk.easycar.spring.service.DriverService;
@@ -21,6 +23,16 @@ public class DriverServiceImpl implements DriverService {
 
     @Autowired
     ModelMapper mapper;
+
+    @Override
+    public DriverDTO checkDriverLogIn(String name, String password) {
+        Driver driver = driverRepo.checkDriverLogIn(name, password);
+        if (!(driver ==null)){
+            return mapper.map(driver, DriverDTO.class);
+        }else {
+            return null;
+        }
+    }
 
     @Override
     public void saveDriver(DriverDTO driverDTO) {

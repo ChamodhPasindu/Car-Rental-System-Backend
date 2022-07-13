@@ -2,6 +2,8 @@ package lk.easycar.spring;
 
 import lk.easycar.spring.config.WebAppConfig;
 import lk.easycar.spring.config.WebRootConfig;
+import lk.easycar.spring.entity.Admin;
+import lk.easycar.spring.repo.AdminRepo;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import javax.servlet.MultipartConfigElement;
@@ -27,4 +29,5 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
     protected void customizeRegistration(ServletRegistration.Dynamic registration) {
         registration.setMultipartConfig(new MultipartConfigElement(System.getProperty("java.io.tmpdir")));
     }
+
 }
