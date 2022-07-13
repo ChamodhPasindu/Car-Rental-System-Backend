@@ -1,5 +1,6 @@
 package lk.easycar.spring.controller;
 
+import lk.easycar.spring.dto.CarDTO;
 import lk.easycar.spring.dto.CustomerDTO;
 import lk.easycar.spring.dto.UserDTO;
 import lk.easycar.spring.service.CarReservationService;
@@ -59,7 +60,7 @@ public class CustomerController {
 
     @PutMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseUtil updateCustomerDetails(@RequestPart("file") MultipartFile[] file, @RequestPart("customer") CustomerDTO customerDTO) {
-        customerService.updateCustomer(customerDTO);
+        String message = customerService.updateCustomer(customerDTO);
 
         for (MultipartFile myFile : file) {
             try {
@@ -73,7 +74,7 @@ public class CustomerController {
             }
         }
 
-        return new ResponseUtil(200, "Update Details Successfully....", null);
+        return new ResponseUtil(200,message , null);
     }
 
     @PutMapping(path = "accountSecurity",produces = MediaType.APPLICATION_JSON_VALUE)
@@ -110,6 +111,7 @@ public class CustomerController {
     public ResponseUtil sendDriverInfoForAcceptReservations(@PathVariable String id) {
         return new ResponseUtil(200, "Done", driverScheduleService.getDriverScheduleForSendCustomer(id));
     }
+
 
     @DeleteMapping(path = "delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseUtil deleteCustomer(@PathVariable String id) {

@@ -3,6 +3,7 @@ package lk.easycar.spring.repo;
 import lk.easycar.spring.entity.Car;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -28,5 +29,9 @@ public interface CarRepo extends JpaRepository<Car, String> {
 
     @Query(value = "SELECT * FROM car WHERE registration_no IN (SELECT DISTINCT registration_no FROM car_reservation WHERE (reservation_status='Accept') AND ?1 BETWEEN pick_up_date AND return_date) AND status='Available'", nativeQuery = true)
     List<Car> getRentalCarsOnDay(String select_date);
+
+    @Query(value = "SELECT c FROM car c WHERE (:transmission is null OR c.transmission=:transmission) AND (:brand is null OR c.brand=:brand) AND (:fuel is null OR c.fuel_type=:fuel) AND (:type is null OR c.type=:type) AND (:no_of_passengers = 0 OR c.no_of_passengers=:no_of_passengers)")
+    List<Car>sortCarsByAttributes(@Param("transmission") String transmission,@Param("brand") String brand,
+                                  @Param("type") String type,@Param("fuel") String fuel,@Param("no_of_passengers") int no_of_passengers);
 
 }

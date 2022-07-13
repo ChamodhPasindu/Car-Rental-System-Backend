@@ -1,6 +1,7 @@
 package lk.easycar.spring.service;
 
 import lk.easycar.spring.dto.CarDTO;
+import lk.easycar.spring.entity.Car;
 
 import java.util.List;
 
@@ -24,6 +25,9 @@ public interface CarService {
     List<CarDTO> getAvailableAndRentalCarsForReservation(String pick_up_date,String return_date,String status);
 
     void setCarStatusUnavailableOrAvailable(String id,String status);
+
+    List<CarDTO>sortCarsByAttributes(CarDTO carDTO);
+
 
 
 

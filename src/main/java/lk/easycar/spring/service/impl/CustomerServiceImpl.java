@@ -45,13 +45,17 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void updateCustomer(CustomerDTO customerDTO) {
+    public String updateCustomer(CustomerDTO customerDTO) {
         if (customerRepo.existsById(customerDTO.getNic())) {
             CarReservation carReservation = carReservationRepo.checkTodayCustomerInReservationOrNot(customerDTO.getNic());
             if (carReservation==null){
                 customerRepo.save(mapper.map(customerDTO, Customer.class));
+                return "Update Details Successfully....";
             }else {
-                throw new RuntimeException("In Our Privacy Policy Ruled,You cant Update your Details till Reservation is End ");
+                Customer customer = customerRepo.findById(customerDTO.getNic()).get();
+                customer.setMobile(customerDTO.getMobile());
+                customerRepo.save(customer);
+                return "In Our Privacy Policy Ruled,You can Update your Mobile Number Only Details till Reservation is End ";
             }
         } else {
             throw new RuntimeException("Something Wrong,Cant Update Your Details.Please Contact Admin");

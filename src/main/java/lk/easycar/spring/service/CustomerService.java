@@ -9,7 +9,7 @@ import java.util.List;
 public interface CustomerService {
     void saveCustomer(CustomerDTO customerDTO);
 
-    void updateCustomer(CustomerDTO customerDTO);
+    String updateCustomer(CustomerDTO customerDTO);
 
     void changeCustomerUsernameAndPassword(UserDTO userDTO);
 

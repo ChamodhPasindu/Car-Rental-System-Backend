@@ -107,6 +107,13 @@ public class CarController {
         return new ResponseUtil(200, "Done", carService.getAvailableAndRentalCarsForReservation(pick_up_date, return_date, status));
     }
 
+
+    //carts sort by admin selected attributes
+    @GetMapping(path = "carsSortByAttribute", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil carsSortByAttribute(@RequestBody CarDTO carDTO) {
+        return new ResponseUtil(200, "Done", carService.sortCarsByAttributes(carDTO));
+    }
+
     @DeleteMapping(path = "removeCar/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseUtil deleteCarDetail(@PathVariable String id) {
         carService.deleteCar(id);
