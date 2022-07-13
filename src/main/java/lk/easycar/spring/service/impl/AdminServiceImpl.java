@@ -6,6 +6,7 @@ import lk.easycar.spring.repo.AdminRepo;
 import lk.easycar.spring.service.AdminService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,12 +20,13 @@ public class AdminServiceImpl implements AdminService {
     @Autowired
     ModelMapper mapper;
 
+
     @Override
     public AdminDTO checkAdminLogIn(String name, String password) {
         Admin admin = adminRepo.checkAdminLogIn(name, password);
-        if (!(admin ==null)){
+        if (!(admin == null)) {
             return mapper.map(admin, AdminDTO.class);
-        }else {
+        } else {
             return null;
         }
     }

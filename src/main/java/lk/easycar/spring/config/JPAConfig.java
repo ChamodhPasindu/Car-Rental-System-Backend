@@ -1,5 +1,6 @@
 package lk.easycar.spring.config;
 
+import lk.easycar.spring.util.PasswordEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -41,6 +42,7 @@ public class JPAConfig {
     @Bean
     public DataSource dataSource() throws NamingException {
         return (DataSource) new JndiTemplate().lookup("java:comp/env/jdbc/pool");
+
     }
 
     @Bean
@@ -56,5 +58,10 @@ public class JPAConfig {
     @Bean
     public PlatformTransactionManager transactionManager(EntityManagerFactory factory) {
         return new JpaTransactionManager(factory);
+    }
+
+    @Bean
+    public PasswordEncryptor passwordEncryptor(){
+        return new PasswordEncryptor();
     }
 }

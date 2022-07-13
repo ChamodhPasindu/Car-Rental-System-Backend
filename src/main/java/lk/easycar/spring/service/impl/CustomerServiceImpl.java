@@ -8,6 +8,7 @@ import lk.easycar.spring.repo.CarReservationRepo;
 import lk.easycar.spring.repo.CustomerRepo;
 import lk.easycar.spring.service.CarReservationService;
 import lk.easycar.spring.service.CustomerService;
+import lk.easycar.spring.util.PasswordEncryptor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,9 +30,14 @@ public class CustomerServiceImpl implements CustomerService {
     @Autowired
     ModelMapper mapper;
 
+    @Autowired
+    PasswordEncryptor passwordEncryptor;
+
     @Override
     public void saveCustomer(CustomerDTO customerDTO) {
         if (!customerRepo.existsById(customerDTO.getNic())) {
+            String password = passwordEncryptor.getPassword(customerDTO.getPassword());
+            customerDTO.setPassword(password);
             customerRepo.save(mapper.map(customerDTO, Customer.class));
         } else {
             throw new RuntimeException("Customer Already Registered..!");
@@ -56,8 +62,11 @@ public class CustomerServiceImpl implements CustomerService {
     public void changeCustomerUsernameAndPassword(UserDTO userDTO) {
         if (customerRepo.existsById(userDTO.getCustomer_id())){
             Customer customer = customerRepo.findById(userDTO.getCustomer_id()).get();
+
+            String password = passwordEncryptor.getPassword(userDTO.getPassword());
+            System.out.println(password);
+            customer.setPassword(password);
             customer.setUser_name(userDTO.getUser_name());
-            customer.setPassword(userDTO.getPassword());
             customerRepo.save(customer);
         }else {
             throw new RuntimeException("Something Wrong,Cant Change Your Username & password.Please Contact Admin");

@@ -7,6 +7,7 @@ import lk.easycar.spring.dto.UserDTO;
 import lk.easycar.spring.service.AdminService;
 import lk.easycar.spring.service.CustomerService;
 import lk.easycar.spring.service.DriverService;
+import lk.easycar.spring.util.PasswordEncryptor;
 import lk.easycar.spring.util.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -26,14 +27,19 @@ public class LogInController {
     @Autowired
     DriverService driverService;
 
+    @Autowired
+    PasswordEncryptor passwordEncryptor;
+
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseUtil checkUserNameAndPassword(@RequestBody UserDTO userDTO) {
 
-        CustomerDTO customerDTO = customerService.checkCustomerLogIn(userDTO.getUser_name(), userDTO.getPassword());
+        String encryptedPassword = passwordEncryptor.getPassword(userDTO.getPassword());
+
+        CustomerDTO customerDTO = customerService.checkCustomerLogIn(userDTO.getUser_name(), encryptedPassword);
         if (customerDTO == null) {
-            AdminDTO adminDTO = adminService.checkAdminLogIn(userDTO.getUser_name(), userDTO.getPassword());
+            AdminDTO adminDTO = adminService.checkAdminLogIn(userDTO.getUser_name(),encryptedPassword);
             if (adminDTO == null) {
-                DriverDTO driverDTO = driverService.checkDriverLogIn(userDTO.getUser_name(), userDTO.getPassword());
+                DriverDTO driverDTO = driverService.checkDriverLogIn(userDTO.getUser_name(), encryptedPassword);
                 if (!(driverDTO ==null)) {
                     return new ResponseUtil(200, "Driver Login Successfully....", driverDTO);
                 }else {

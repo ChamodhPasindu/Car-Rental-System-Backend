@@ -6,6 +6,7 @@ import lk.easycar.spring.entity.Admin;
 import lk.easycar.spring.entity.Driver;
 import lk.easycar.spring.repo.DriverRepo;
 import lk.easycar.spring.service.DriverService;
+import lk.easycar.spring.util.PasswordEncryptor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,9 @@ public class DriverServiceImpl implements DriverService {
     @Autowired
     ModelMapper mapper;
 
+    @Autowired
+    PasswordEncryptor passwordEncryptor;
+
     @Override
     public DriverDTO checkDriverLogIn(String name, String password) {
         Driver driver = driverRepo.checkDriverLogIn(name, password);
@@ -37,6 +41,8 @@ public class DriverServiceImpl implements DriverService {
     @Override
     public void saveDriver(DriverDTO driverDTO) {
         if (!driverRepo.existsById(driverDTO.getNic())) {
+            String password = passwordEncryptor.getPassword(driverDTO.getPassword());
+            driverDTO.setPassword(password);
             driverRepo.save(mapper.map(driverDTO, Driver.class));
         } else {
             throw new RuntimeException("This Driver Record Already Added To System..!");
@@ -46,6 +52,8 @@ public class DriverServiceImpl implements DriverService {
     @Override
     public void UpdateDriver(DriverDTO driverDTO) {
         if (driverRepo.existsById(driverDTO.getNic())) {
+            String password = passwordEncryptor.getPassword(driverDTO.getPassword());
+            driverDTO.setPassword(password);
             driverRepo.save(mapper.map(driverDTO, Driver.class));
         } else {
             throw new RuntimeException("Update Failed.!  This Driver's Previous Record is Missing..Add Again");
