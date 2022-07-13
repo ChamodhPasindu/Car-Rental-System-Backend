@@ -31,9 +31,9 @@ public class DriverServiceImpl implements DriverService {
     @Override
     public DriverDTO checkDriverLogIn(String name, String password) {
         Driver driver = driverRepo.checkDriverLogIn(name, password);
-        if (!(driver ==null)){
+        if (!(driver == null)) {
             return mapper.map(driver, DriverDTO.class);
-        }else {
+        } else {
             return null;
         }
     }
@@ -84,13 +84,16 @@ public class DriverServiceImpl implements DriverService {
     }
 
     @Override
-    public DriverDTO getTodayAvailableAndOccupiedDrivers(String status) {
-        switch (status) {
-            case "Available":return mapper.map(driverRepo.getTodayAvailableDrivers(),DriverDTO.class);
-            case "Occupied":return mapper.map(driverRepo.getTodayOccupiedDrivers(),DriverDTO.class);
-            default:throw new RuntimeException("Not select status for show record of Available or Occupied drivers");
+    public List<DriverDTO> getTodayAvailableAndOccupiedDrivers(String status) {
+
+        if (status.equals("Available")) {
+            return mapper.map(driverRepo.getTodayAvailableDrivers(), new TypeToken<List<DriverDTO>>() {
+            }.getType());
+        } else if (status.equals("Occupied")) {
+            return mapper.map(driverRepo.getTodayOccupiedDrivers(), new TypeToken<List<DriverDTO>>() {
+            }.getType());
+        } else {
+            throw new RuntimeException("Not select status for show record of Available or Occupied drivers");
         }
     }
-
-
 }

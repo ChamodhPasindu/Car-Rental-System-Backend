@@ -10,7 +10,7 @@ public interface CarReservationService {
 
     void requestReservation(CarReservationDTO carReservationDTO);
 
-    void updateReservationStatus(String reserve_id, String driver_id,String status);
+    void updateReservationStatus(String reserve_id, String driver_id, String status);
 
     List<CarReservationDTO> getAllPendingReservation();
 
@@ -20,7 +20,6 @@ public interface CarReservationService {
 
     List<CarReservationDTO> getAllTodayPickUps();
 
-    List<CarReservationDTO> getCustomerReservationByStatus(String id,String status);
-
+    List<CarReservationDTO> getCustomerReservationByStatus(String id, String status);
 
 }

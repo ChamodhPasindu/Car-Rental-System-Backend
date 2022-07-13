@@ -42,11 +42,11 @@ public class DateFinder {
         return today.with(lastDayOfYear());
     }
 
-    public static LocalDate getToday(){
+    public static LocalDate getToday() {
         return today;
     }
 
-    public static LocalDate dateStringToLocalDate(String date){
+    public static LocalDate dateStringToLocalDate(String date) {
         DateTimeFormatter pattern = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         return LocalDate.parse(date, pattern);
     }

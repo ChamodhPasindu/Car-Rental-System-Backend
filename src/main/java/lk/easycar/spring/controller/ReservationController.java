@@ -34,6 +34,7 @@ public class ReservationController {
         return new ResponseUtil(200, "Done", carReservationService.generateReservationId());
     }
 
+    //When send reservation request,waiver payment transcript photo and details came as separate Multipart file
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseUtil requestReservation(@RequestPart("reservation") CarReservationDTO carReservation, @RequestPart("file") MultipartFile file) {
@@ -48,16 +49,18 @@ public class ReservationController {
             e.printStackTrace();
             return new ResponseUtil(500, "Reservation Sending Filed.Try Again Latter", null);
         }
-        carReservation.setBank_slip_img("uploads/"+carReservation.getBank_slip_img());
+        carReservation.setBank_slip_img("uploads/" + carReservation.getBank_slip_img());
         return new ResponseUtil(200, "Request Send Successfully", null);
     }
 
-    @PutMapping(params = {"reserve_id","driver_id","status"},produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseUtil updateReservationStatus(@RequestParam String reserve_id,@RequestParam String driver_id,@RequestParam String status) {
-        carReservationService.updateReservationStatus(reserve_id,driver_id,status);
+    //update reservation Status and Driver by reserve_id
+    @PutMapping(params = {"reserve_id", "driver_id", "status"}, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil updateReservationStatus(@RequestParam String reserve_id, @RequestParam String driver_id, @RequestParam String status) {
+        carReservationService.updateReservationStatus(reserve_id, driver_id, status);
         return new ResponseUtil(200, status + " Request Successfully", null);
     }
 
+    //return reservations they are in pending status
     @GetMapping(path = "pendingReservation", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseUtil getAllPendingReservation() {
         return new ResponseUtil(200, "Done", carReservationService.getAllPendingReservation());
@@ -68,18 +71,15 @@ public class ReservationController {
         return new ResponseUtil(200, "Done", carReservationService.getReservationDetail(id));
     }
 
-    @GetMapping(path = "todayReservation",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseUtil getAllTodayReservation(){
-        return new ResponseUtil(200, "Done",carReservationService.getAllTodayReservation());
+    //return all today reserve reservations
+    @GetMapping(path = "todayReservation", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil getAllTodayReservation() {
+        return new ResponseUtil(200, "Done", carReservationService.getAllTodayReservation());
     }
 
-    @GetMapping(path = "todayPickUps",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseUtil getAllTodayPickUps(){
-        return new ResponseUtil(200, "Done",carReservationService.getAllTodayPickUps());
+    //return all reservations they are picking up today
+    @GetMapping(path = "todayPickUps", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil getAllTodayPickUps() {
+        return new ResponseUtil(200, "Done", carReservationService.getAllTodayPickUps());
     }
-
-
-
-
-
 }

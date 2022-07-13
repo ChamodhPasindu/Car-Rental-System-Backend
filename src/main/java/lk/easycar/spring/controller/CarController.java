@@ -21,8 +21,9 @@ public class CarController {
     @Autowired
     CarService carService;
 
+    //Save Customer photos and details came as separate Multipart file
     @ResponseStatus(HttpStatus.OK)
-    @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
+    @PostMapping(path = "addNewCar", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseUtil addCar(@RequestPart("file") MultipartFile[] file, @RequestPart("car") CarDTO carDTO) {
         carService.saveCar(carDTO);
 
@@ -48,7 +49,8 @@ public class CarController {
 
     }
 
-    @PutMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
+    //Update Customer photos and details came as separate Multipart file
+    @PutMapping(path = "updateCarDetail", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseUtil updateCarDetails(@RequestPart("file") MultipartFile[] file, @RequestPart("car") CarDTO carDTO) {
         carService.updateCar(carDTO);
 
@@ -63,7 +65,6 @@ public class CarController {
                 return new ResponseUtil(500, "Update Vehicle Details Failed.Try Again Latter", null);
             }
         }
-
         return new ResponseUtil(200, "Update Vehicle Details Successfully...", null);
     }
 
@@ -85,11 +86,13 @@ public class CarController {
         return new ResponseUtil(200, "Done", carService.getAllCarDetail());
     }
 
+    //return cars they are statuses is maintained
     @GetMapping(path = "carsUnderMaintain", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseUtil getCarsUnderMaintain() {
         return new ResponseUtil(200, "Done", carService.getCarsUnderMaintain());
     }
 
+    //return cars they are needed to maintaining
     @GetMapping(path = "carsNeedMaintain", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseUtil getCarsNeedMaintain() {
         return new ResponseUtil(200, "Done", carService.getCarsNeedMaintain());
@@ -107,7 +110,6 @@ public class CarController {
         return new ResponseUtil(200, "Done", carService.getAvailableAndRentalCarsForReservation(pick_up_date, return_date, status));
     }
 
-
     //carts sort by admin selected attributes
     @GetMapping(path = "carsSortByAttribute", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseUtil carsSortByAttribute(@RequestBody CarDTO carDTO) {
@@ -119,6 +121,4 @@ public class CarController {
         carService.deleteCar(id);
         return new ResponseUtil(200, "Vehicle Details Deleted Successfully", null);
     }
-
-
 }

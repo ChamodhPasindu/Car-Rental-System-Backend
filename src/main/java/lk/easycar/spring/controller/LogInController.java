@@ -33,6 +33,7 @@ public class LogInController {
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseUtil checkUserNameAndPassword(@RequestBody UserDTO userDTO) {
 
+        //convert string variable to encrypted hex value
         String encryptedPassword = passwordEncryptor.getPassword(userDTO.getPassword());
 
         CustomerDTO customerDTO = customerService.checkCustomerLogIn(userDTO.getUser_name(), encryptedPassword);

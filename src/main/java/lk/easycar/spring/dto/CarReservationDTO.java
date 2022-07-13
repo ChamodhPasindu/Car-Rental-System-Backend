@@ -27,7 +27,6 @@ public class CarReservationDTO {
     private Time pick_up_time;
     private String pick_up_and_return_venue;
     private int no_of_days;
-    private BigDecimal waiver_payment;
     private String bank_slip_img;
     private String reservation_status;
     private String driver_status;
@@ -35,5 +34,4 @@ public class CarReservationDTO {
     private CustomerDTO customer;
 
     private CarDTO car;
-
 }

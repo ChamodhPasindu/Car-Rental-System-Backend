@@ -61,7 +61,7 @@ public class JPAConfig {
     }
 
     @Bean
-    public PasswordEncryptor passwordEncryptor(){
+    public PasswordEncryptor passwordEncryptor() {
         return new PasswordEncryptor();
     }
 }

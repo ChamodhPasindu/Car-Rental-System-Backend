@@ -33,8 +33,10 @@ public class CustomerController {
     @Autowired
     CarReservationService carReservationService;
 
+
+    //guest user can register as customer,Customer nic,license photo and details came as separate Multipart file
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
+    @PostMapping(path = "register", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseUtil registerCustomer(@RequestPart("file") MultipartFile[] file, @RequestPart("customer") CustomerDTO customerDTO) {
         customerService.saveCustomer(customerDTO);
 
@@ -58,7 +60,8 @@ public class CustomerController {
         return new ResponseUtil(200, "Registration Successfully....", null);
     }
 
-    @PutMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
+    //user can update details,Customer nic,license photo and details came as separate Multipart file
+    @PutMapping(path = "update", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseUtil updateCustomerDetails(@RequestPart("file") MultipartFile[] file, @RequestPart("customer") CustomerDTO customerDTO) {
         String message = customerService.updateCustomer(customerDTO);
 
@@ -74,15 +77,15 @@ public class CustomerController {
             }
         }
 
-        return new ResponseUtil(200,message , null);
+        return new ResponseUtil(200, message, null);
     }
 
-    @PutMapping(path = "accountSecurity",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseUtil changeCustomerUsernameAndPassword(@RequestBody UserDTO userDTO){
+    //change customer username & password
+    @PutMapping(path = "accountSecurity", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil changeCustomerUsernameAndPassword(@RequestBody UserDTO userDTO) {
         customerService.changeCustomerUsernameAndPassword(userDTO);
         return new ResponseUtil(200, "Update Account Username & password Successfully", null);
     }
-
 
     @GetMapping(path = "customerDetail/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseUtil getCustomerDetail(@PathVariable String id) {
@@ -95,23 +98,25 @@ public class CustomerController {
         return new ResponseUtil(200, "Done", customerService.getAllCustomerDetail());
     }
 
+    //return customers they are register with system in current date
     @GetMapping(path = "todayRegisteredUsers", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseUtil getTodayRegisteredCustomers() {
         return new ResponseUtil(200, "Done", customerService.getTodayRegisteredCustomers());
     }
 
+
     //This can be use for get customer reservation history and upcoming reservations.
     // status="Done" or "Accept"
-    @GetMapping(path = "customerReservationByStatus",params = {"id","status"}, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseUtil getCustomerReservationByStatus(@RequestParam String id,@RequestParam String status) {
-        return new ResponseUtil(200, "Done", carReservationService.getCustomerReservationByStatus(id,status));
+    @GetMapping(path = "customerReservationByStatus", params = {"id", "status"}, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil getCustomerReservationByStatus(@RequestParam String id, @RequestParam String status) {
+        return new ResponseUtil(200, "Done", carReservationService.getCustomerReservationByStatus(id, status));
     }
 
-   @GetMapping(path = "sendDriverInfoForAcceptReservations/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    //When admin accept the reservation request driver info should need to send customer if customer request driver
+    @GetMapping(path = "sendDriverInfoForAcceptReservations/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseUtil sendDriverInfoForAcceptReservations(@PathVariable String id) {
         return new ResponseUtil(200, "Done", driverScheduleService.getDriverScheduleForSendCustomer(id));
     }
-
 
     @DeleteMapping(path = "delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseUtil deleteCustomer(@PathVariable String id) {

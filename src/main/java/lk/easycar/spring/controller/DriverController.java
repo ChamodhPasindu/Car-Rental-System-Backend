@@ -21,13 +21,13 @@ public class DriverController {
     DriverScheduleService driverScheduleService;
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "addDriver",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseUtil saveDriver(@ModelAttribute DriverDTO driverDTO) {
         driverService.saveDriver(driverDTO);
         return new ResponseUtil(200, "Driver Added Successfully", null);
     }
 
-    @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(path = "updateDriver",produces = MediaType.APPLICATION_JSON_VALUE)
     private ResponseUtil updateDriverDetail(@RequestBody DriverDTO driverDTO) {
         driverService.UpdateDriver(driverDTO);
         return new ResponseUtil(200, "Driver Updated Successfully", null);
@@ -49,17 +49,20 @@ public class DriverController {
         return new ResponseUtil(200, "Done", driverService.getAllDriverDetail());
     }
 
+    //when send two dates,then return schedule of drivers suitable for that
     @GetMapping(path = "driverScheduleByDate", params = {"start_date", "end_date"}, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseUtil getDriverScheduleByDate(@RequestParam String start_date, @RequestParam String end_date) {
         return new ResponseUtil(200, "Done", driverScheduleService.getDriverSchedulesByDate(start_date, end_date));
     }
 
+    //Return driver list of today available or occupied drivers.That selected on admin request status
     @GetMapping(path = "todayAvailableAndOccupiedDrivers/{status}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseUtil getTodayAvailableAndOccupiedDrivers(@PathVariable String status) {
         return new ResponseUtil(200, "Done", driverService.getTodayAvailableAndOccupiedDrivers(status));
     }
 
-    @GetMapping(path = "weeklyAndAnnuallyScheduleByDriver", params = {"id", "date"}, produces = MediaType.APPLICATION_JSON_VALUE)
+    //get weekly and monthly driver schedule
+    @GetMapping(path = "weeklyAndMonthlyScheduleByDriver", params = {"id", "date"}, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseUtil weeklyScheduleByDriver(@RequestParam String id, @RequestParam String date) {
         return new ResponseUtil(200, "Done", driverScheduleService.getDriverWeeklyScheduleByDate(id,date));
     }

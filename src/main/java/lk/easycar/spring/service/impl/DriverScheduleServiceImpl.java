@@ -57,21 +57,22 @@ public class DriverScheduleServiceImpl implements DriverScheduleService {
                 return mapper.map(schedule, new TypeToken<List<DriverScheduleDTO>>() {
                 }.getType());
             } else {
-                throw new RuntimeException("You Have Not any Rides In this Month ");
+                throw new RuntimeException("You Have Not any Rides In this Week");
             }
         } else {
-            throw new RuntimeException("Please Select Monthly or Annually Schedule");
+            throw new RuntimeException("Please Select Weekly or Monthly Schedule");
         }
-
     }
 
     @Override
     public List<DriverScheduleDTO> getDriverScheduleForSendCustomer(String customer_id) {
         List<CarReservation> accept = carReservationRepo.getCustomerReservationByStatus(customer_id, "Accept");
-        List<DriverScheduleDTO> scheduleDTOS=new ArrayList<>();
-        for (CarReservation reservation:accept) {
-            DriverScheduleDTO dto = mapper.map(driverScheduleRepo.getDriverSchedulesByReservationId(reservation.getReserve_id()), DriverScheduleDTO.class);
-            scheduleDTOS.add(dto);
+        List<DriverScheduleDTO> scheduleDTOS = new ArrayList<>();
+        for (CarReservation reservation : accept) {
+            if (!reservation.getDriver_status().equals("NO")) {
+                DriverScheduleDTO dto = mapper.map(driverScheduleRepo.getDriverSchedulesByReservationId(reservation.getReserve_id()), DriverScheduleDTO.class);
+                scheduleDTOS.add(dto);
+            }
         }
         return scheduleDTOS;
     }

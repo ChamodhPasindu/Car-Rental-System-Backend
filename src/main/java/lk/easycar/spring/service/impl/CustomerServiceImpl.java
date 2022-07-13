@@ -48,10 +48,10 @@ public class CustomerServiceImpl implements CustomerService {
     public String updateCustomer(CustomerDTO customerDTO) {
         if (customerRepo.existsById(customerDTO.getNic())) {
             CarReservation carReservation = carReservationRepo.checkTodayCustomerInReservationOrNot(customerDTO.getNic());
-            if (carReservation==null){
+            if (carReservation == null) {
                 customerRepo.save(mapper.map(customerDTO, Customer.class));
                 return "Update Details Successfully....";
-            }else {
+            } else {
                 Customer customer = customerRepo.findById(customerDTO.getNic()).get();
                 customer.setMobile(customerDTO.getMobile());
                 customerRepo.save(customer);
@@ -64,7 +64,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public void changeCustomerUsernameAndPassword(UserDTO userDTO) {
-        if (customerRepo.existsById(userDTO.getCustomer_id())){
+        if (customerRepo.existsById(userDTO.getCustomer_id())) {
             Customer customer = customerRepo.findById(userDTO.getCustomer_id()).get();
 
             String password = passwordEncryptor.getPassword(userDTO.getPassword());
@@ -72,7 +72,7 @@ public class CustomerServiceImpl implements CustomerService {
             customer.setPassword(password);
             customer.setUser_name(userDTO.getUser_name());
             customerRepo.save(customer);
-        }else {
+        } else {
             throw new RuntimeException("Something Wrong,Cant Change Your Username & password.Please Contact Admin");
         }
     }
@@ -117,5 +117,4 @@ public class CustomerServiceImpl implements CustomerService {
         return mapper.map(customerRepo.getTodayRegisteredCustomers(), new TypeToken<List<CustomerDTO>>() {
         }.getType());
     }
-
 }

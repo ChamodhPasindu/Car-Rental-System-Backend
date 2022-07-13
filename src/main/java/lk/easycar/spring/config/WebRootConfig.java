@@ -22,8 +22,9 @@ public class WebRootConfig {
     @Autowired
     PasswordEncryptor passwordEncryptor;
 
+    //create admin account when server start
     @Bean
-    public void createAdminAccount(){
+    public void createAdminAccount() {
         Admin admin = new Admin();
 
         String password = passwordEncryptor.getPassword(env.getProperty("admin.password"));

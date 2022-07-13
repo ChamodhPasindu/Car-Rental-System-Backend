@@ -11,6 +11,6 @@ public interface ReservationPaymentService {
 
     void makePaymentForReservation(ReservationPaymentDTO reservationPaymentDTO);
 
-    List<ReservationPayment>getIncomeByDate(String type,String start_date,String end_date);
+    List<ReservationPayment> getIncomeByDate(String type, String start_date, String end_date);
 
 }

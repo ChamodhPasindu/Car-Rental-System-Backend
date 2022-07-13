@@ -26,6 +26,7 @@ public class CarDTO {
     private int free_km_for_day;
     private int free_km_for_month;
     private BigDecimal price_for_extra_km;
+    private BigDecimal waiver_payment;
     private String status;
 
     private CarImgDetailDTO carImgDetail;

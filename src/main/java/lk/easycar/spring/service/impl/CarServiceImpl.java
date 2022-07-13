@@ -98,7 +98,7 @@ public class CarServiceImpl implements CarService {
                 return mapper.map(carRepo.getAvailableCarsForReservation(pick_up_date, return_date), new TypeToken<List<CarDTO>>() {
                 }.getType());
             }
-        } else {
+        } else if (status.equals("Rental")) {
             if (return_date.isEmpty()) {
                 return mapper.map(carRepo.getRentalCarsOnDay(pick_up_date), new TypeToken<List<CarDTO>>() {
                 }.getType());
@@ -106,6 +106,8 @@ public class CarServiceImpl implements CarService {
                 return mapper.map(carRepo.getRentalCars(pick_up_date, return_date), new TypeToken<List<CarDTO>>() {
                 }.getType());
             }
+        } else {
+            throw new RuntimeException("Select Available Or Rental Cars You Want");
         }
     }
 
@@ -123,9 +125,8 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public List<CarDTO> sortCarsByAttributes(CarDTO carDTO) {
-        return mapper.map(carRepo.sortCarsByAttributes(carDTO.getTransmission(),carDTO.getBrand()
-        ,carDTO.getType(),carDTO.getFuel_type(),carDTO.getNo_of_passengers()),new TypeToken<List<CarDTO>>(){}.getType());
+        return mapper.map(carRepo.sortCarsByAttributes(carDTO.getTransmission(), carDTO.getBrand()
+                , carDTO.getType(), carDTO.getFuel_type(), carDTO.getNo_of_passengers()), new TypeToken<List<CarDTO>>() {
+        }.getType());
     }
-
-
 }

@@ -17,12 +17,10 @@ public interface CustomerService {
 
     CustomerDTO getCustomerDetail(String id);
 
-    CustomerDTO checkCustomerLogIn(String user_name,String password);
+    CustomerDTO checkCustomerLogIn(String user_name, String password);
 
-    List<CustomerDTO>getAllCustomerDetail();
+    List<CustomerDTO> getAllCustomerDetail();
 
     List<CustomerDTO> getTodayRegisteredCustomers();
-
-
 
 }

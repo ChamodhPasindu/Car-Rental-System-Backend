@@ -18,7 +18,7 @@ import java.util.Properties;
 public class WebAppConfig implements WebMvcConfigurer {
 
     @Bean
-    public ModelMapper modelMapper(){
+    public ModelMapper modelMapper() {
         return new ModelMapper();
     }
 
@@ -26,5 +26,4 @@ public class WebAppConfig implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/uploads/**").addResourceLocations("/uploads/");
     }
-
 }
