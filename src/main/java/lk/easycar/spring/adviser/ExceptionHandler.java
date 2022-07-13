@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @CrossOrigin
 @RestControllerAdvice
 public class ExceptionHandler {
+
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @org.springframework.web.bind.annotation.ExceptionHandler({Exception.class})
     public ResponseUtil exceptionHandler(Exception e) {

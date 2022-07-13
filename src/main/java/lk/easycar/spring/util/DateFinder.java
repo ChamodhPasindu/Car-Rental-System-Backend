@@ -44,7 +44,6 @@ public class DateFinder {
 
     public static LocalDate getToday(){
         return today;
-
     }
 
     public static LocalDate dateStringToLocalDate(String date){

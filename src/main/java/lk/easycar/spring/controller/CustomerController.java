@@ -5,6 +5,7 @@ import lk.easycar.spring.dto.UserDTO;
 import lk.easycar.spring.service.CarReservationService;
 import lk.easycar.spring.service.CustomerService;
 
+import lk.easycar.spring.service.DriverScheduleService;
 import lk.easycar.spring.util.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,6 +25,9 @@ public class CustomerController {
 
     @Autowired
     CustomerService customerService;
+
+    @Autowired
+    DriverScheduleService driverScheduleService;
 
     @Autowired
     CarReservationService carReservationService;
@@ -100,6 +104,11 @@ public class CustomerController {
     @GetMapping(path = "customerReservationByStatus",params = {"id","status"}, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseUtil getCustomerReservationByStatus(@RequestParam String id,@RequestParam String status) {
         return new ResponseUtil(200, "Done", carReservationService.getCustomerReservationByStatus(id,status));
+    }
+
+   @GetMapping(path = "sendDriverInfoForAcceptReservations/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil sendDriverInfoForAcceptReservations(@PathVariable String id) {
+        return new ResponseUtil(200, "Done", driverScheduleService.getDriverScheduleForSendCustomer(id));
     }
 
     @DeleteMapping(path = "delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)

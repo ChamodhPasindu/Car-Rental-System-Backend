@@ -1,7 +1,9 @@
 package lk.easycar.spring.service.impl;
 
 import lk.easycar.spring.dto.DriverScheduleDTO;
+import lk.easycar.spring.entity.CarReservation;
 import lk.easycar.spring.entity.DriverSchedule;
+import lk.easycar.spring.repo.CarReservationRepo;
 import lk.easycar.spring.repo.DriverScheduleRepo;
 import lk.easycar.spring.service.DriverScheduleService;
 import lk.easycar.spring.util.DateFinder;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -20,6 +23,9 @@ public class DriverScheduleServiceImpl implements DriverScheduleService {
 
     @Autowired
     DriverScheduleRepo driverScheduleRepo;
+
+    @Autowired
+    CarReservationRepo carReservationRepo;
 
     @Autowired
     ModelMapper mapper;
@@ -57,5 +63,16 @@ public class DriverScheduleServiceImpl implements DriverScheduleService {
             throw new RuntimeException("Please Select Monthly or Annually Schedule");
         }
 
+    }
+
+    @Override
+    public List<DriverScheduleDTO> getDriverScheduleForSendCustomer(String customer_id) {
+        List<CarReservation> accept = carReservationRepo.getCustomerReservationByStatus(customer_id, "Accept");
+        List<DriverScheduleDTO> scheduleDTOS=new ArrayList<>();
+        for (CarReservation reservation:accept) {
+            DriverScheduleDTO dto = mapper.map(driverScheduleRepo.getDriverSchedulesByReservationId(reservation.getReserve_id()), DriverScheduleDTO.class);
+            scheduleDTOS.add(dto);
+        }
+        return scheduleDTOS;
     }
 }
