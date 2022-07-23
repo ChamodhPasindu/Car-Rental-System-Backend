@@ -30,8 +30,9 @@ public class LogInController {
     @Autowired
     PasswordEncryptor passwordEncryptor;
 
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping (produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseUtil checkUserNameAndPassword(@RequestBody UserDTO userDTO) {
+        System.out.println(userDTO);
 
         //convert string variable to encrypted hex value
         String encryptedPassword = passwordEncryptor.getPassword(userDTO.getPassword());
@@ -42,15 +43,15 @@ public class LogInController {
             if (adminDTO == null) {
                 DriverDTO driverDTO = driverService.checkDriverLogIn(userDTO.getUser_name(), encryptedPassword);
                 if (!(driverDTO ==null)) {
-                    return new ResponseUtil(200, "Driver Login Successfully....", driverDTO);
+                    return new ResponseUtil(200, "Driver", driverDTO);
                 }else {
                     return new ResponseUtil(200, "Incorrect username and password", null);
                 }
             } else {
-                return new ResponseUtil(200, "Admin Login Successfully....", adminDTO);
+                return new ResponseUtil(200, "Admin", adminDTO);
             }
         } else {
-            return new ResponseUtil(200, "Customer Login Successfully....", customerDTO);
+            return new ResponseUtil(200, "Customer", customerDTO);
         }
     }
 

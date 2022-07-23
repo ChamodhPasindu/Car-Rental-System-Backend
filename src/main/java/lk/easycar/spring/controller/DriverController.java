@@ -22,7 +22,7 @@ public class DriverController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(path = "addDriver",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseUtil saveDriver(@ModelAttribute DriverDTO driverDTO) {
+    public ResponseUtil saveDriver(@RequestBody DriverDTO driverDTO) {
         driverService.saveDriver(driverDTO);
         return new ResponseUtil(200, "Driver Added Successfully", null);
     }

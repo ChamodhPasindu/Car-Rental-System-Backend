@@ -17,7 +17,6 @@ public class CustomerDTO {
     private String user_name;
     private String password;
     private String customer_name;
-    private String license_no;
     private String license_img;
     private String nic_img;
     private String address;

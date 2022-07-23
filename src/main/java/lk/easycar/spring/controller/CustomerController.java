@@ -57,7 +57,7 @@ public class CustomerController {
         customerDTO.setLicense_img("uploads/" + customerDTO.getLicense_img());
         customerDTO.setNic_img("uploads/" + customerDTO.getNic_img());
 
-        return new ResponseUtil(200, "Registration Successfully....", null);
+        return new ResponseUtil(200, "Registration Successfully....", customerDTO);
     }
 
     //user can update details,Customer nic,license photo and details came as separate Multipart file
