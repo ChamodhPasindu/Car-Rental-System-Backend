@@ -76,4 +76,9 @@ public class DriverScheduleServiceImpl implements DriverScheduleService {
         }
         return scheduleDTOS;
     }
+
+    @Override
+    public String getDriverByReservationId(String id) {
+        return driverScheduleRepo.getDriverIdByReservationId(id);
+    }
 }

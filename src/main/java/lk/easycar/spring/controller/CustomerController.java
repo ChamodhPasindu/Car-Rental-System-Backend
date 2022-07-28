@@ -38,7 +38,12 @@ public class CustomerController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(path = "register", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseUtil registerCustomer(@RequestPart("file") MultipartFile[] file, @RequestPart("customer") CustomerDTO customerDTO) {
+
+        customerDTO.setLicense_img("uploads/" + customerDTO.getLicense_img());
+        customerDTO.setNic_img("uploads/" + customerDTO.getNic_img());
+
         customerService.saveCustomer(customerDTO);
+
 
         for (MultipartFile myFile : file) {
 
@@ -54,16 +59,15 @@ public class CustomerController {
             }
         }
 
-        customerDTO.setLicense_img("uploads/" + customerDTO.getLicense_img());
-        customerDTO.setNic_img("uploads/" + customerDTO.getNic_img());
 
         return new ResponseUtil(200, "Registration Successfully....", customerDTO);
     }
 
     //user can update details,Customer nic,license photo and details came as separate Multipart file
-    @PutMapping(path = "update", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseUtil updateCustomerDetails(@RequestPart("file") MultipartFile[] file, @RequestPart("customer") CustomerDTO customerDTO) {
+    @PutMapping(path = "update", produces = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseUtil updateCustomerDetails(@RequestBody CustomerDTO customerDTO) {
         String message = customerService.updateCustomer(customerDTO);
+/*
 
         for (MultipartFile myFile : file) {
             try {
@@ -76,6 +80,7 @@ public class CustomerController {
                 return new ResponseUtil(500, "Update Details Failed.Try Again Latter", null);
             }
         }
+*/
 
         return new ResponseUtil(200, message, null);
     }
@@ -90,6 +95,7 @@ public class CustomerController {
     @GetMapping(path = "customerDetail/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseUtil getCustomerDetail(@PathVariable String id) {
         CustomerDTO customerDTO = customerService.getCustomerDetail(id);
+        System.out.println(customerDTO.toString());
         return new ResponseUtil(200, "Done", customerDTO);
     }
 

@@ -25,7 +25,14 @@ public class CarController {
     @ResponseStatus(HttpStatus.OK)
     @PostMapping(path = "addNewCar", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseUtil addCar(@RequestPart("file") MultipartFile[] file, @RequestPart("car") CarDTO carDTO) {
+
+        carDTO.getCarImgDetail().setImage_1("uploads/" + carDTO.getCarImgDetail().getImage_1());
+        carDTO.getCarImgDetail().setImage_2("uploads/" + carDTO.getCarImgDetail().getImage_2());
+        carDTO.getCarImgDetail().setImage_3("uploads/" + carDTO.getCarImgDetail().getImage_3());
+        carDTO.getCarImgDetail().setImage_4("uploads/" + carDTO.getCarImgDetail().getImage_4());
+
         carService.saveCar(carDTO);
+
 
         for (MultipartFile myFile : file) {
             try {
@@ -40,10 +47,6 @@ public class CarController {
             }
         }
 
-        carDTO.getCarImgDetail().setImage_1("uploads/" + carDTO.getCarImgDetail().getImage_1());
-        carDTO.getCarImgDetail().setImage_2("uploads/" + carDTO.getCarImgDetail().getImage_2());
-        carDTO.getCarImgDetail().setImage_3("uploads/" + carDTO.getCarImgDetail().getImage_3());
-        carDTO.getCarImgDetail().setImage_4("uploads/" + carDTO.getCarImgDetail().getImage_4());
 
         return new ResponseUtil(200, "New Vehicle Registered Successfully...", null);
 
@@ -52,6 +55,11 @@ public class CarController {
     //Update Customer photos and details came as separate Multipart file
     @PutMapping(path = "updateCarDetail", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseUtil updateCarDetails(@RequestPart("file") MultipartFile[] file, @RequestPart("car") CarDTO carDTO) {
+        carDTO.getCarImgDetail().setImage_1("uploads/" + carDTO.getCarImgDetail().getImage_1());
+        carDTO.getCarImgDetail().setImage_2("uploads/" + carDTO.getCarImgDetail().getImage_2());
+        carDTO.getCarImgDetail().setImage_3("uploads/" + carDTO.getCarImgDetail().getImage_3());
+        carDTO.getCarImgDetail().setImage_4("uploads/" + carDTO.getCarImgDetail().getImage_4());
+
         carService.updateCar(carDTO);
 
         for (MultipartFile myFile : file) {

@@ -17,9 +17,9 @@ public interface DriverRepo extends JpaRepository<Driver, String> {
             "AND (reservation_status='Accept')))ORDER BY RAND() ASC limit 1;", nativeQuery = true)
     Driver selectDriverForReservation(Date pick_date, Date return_date);
 
-    @Query(value = "SELECT * FROM driver WHERE nic NOT IN(SELECT DISTINCT driver_nic FROM driver_schedule WHERE current_date() BETWEEN start_date AND end_date) ", nativeQuery = true)
+    @Query(value = "SELECT * FROM driver WHERE nic NOT IN(SELECT DISTINCT driver_nic FROM driver_schedule WHERE current_date() BETWEEN start_date AND end_date AND (reserve_id IN(SELECT DISTINCT reserve_id FROM car_reservation WHERE reservation_status='Accept'))) ", nativeQuery = true)
     List<Driver> getTodayAvailableDrivers();
 
-    @Query(value = "SELECT * FROM driver WHERE nic IN(SELECT DISTINCT driver_nic FROM driver_schedule WHERE current_date() BETWEEN start_date AND end_date) ", nativeQuery = true)
+    @Query(value = "SELECT * FROM driver WHERE nic IN(SELECT DISTINCT driver_nic FROM driver_schedule WHERE current_date() BETWEEN start_date AND end_date AND reserve_id IN(SELECT DISTINCT reserve_id FROM car_reservation WHERE reservation_status='Accept'))  ", nativeQuery = true)
     List<Driver> getTodayOccupiedDrivers();
 }

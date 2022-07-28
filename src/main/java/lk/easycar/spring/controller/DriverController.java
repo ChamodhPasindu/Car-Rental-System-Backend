@@ -67,4 +67,9 @@ public class DriverController {
         return new ResponseUtil(200, "Done", driverScheduleService.getDriverWeeklyScheduleByDate(id,date));
     }
 
+  @GetMapping(path = "getSchedule/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil weeklyScheduleByDriver(@PathVariable String id) {
+        return new ResponseUtil(200, "Done", driverScheduleService.getDriverByReservationId(id));
+    }
+
 }

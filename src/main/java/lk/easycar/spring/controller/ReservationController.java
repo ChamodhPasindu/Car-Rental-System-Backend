@@ -38,6 +38,8 @@ public class ReservationController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseUtil requestReservation(@RequestPart("reservation") CarReservationDTO carReservation, @RequestPart("file") MultipartFile file) {
+        carReservation.setBank_slip_img("uploads/" + carReservation.getBank_slip_img());
+
         carReservationService.requestReservation(carReservation);
 
         try {
@@ -49,7 +51,6 @@ public class ReservationController {
             e.printStackTrace();
             return new ResponseUtil(500, "Reservation Sending Filed.Try Again Latter", null);
         }
-        carReservation.setBank_slip_img("uploads/" + carReservation.getBank_slip_img());
         return new ResponseUtil(200, "Request Send Successfully", null);
     }
 

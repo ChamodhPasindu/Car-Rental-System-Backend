@@ -17,7 +17,7 @@ public interface CarReservationRepo extends JpaRepository<CarReservation, String
     @Query(value = "SELECT * FROM car_reservation WHERE reserve_date=current_date()", nativeQuery = true)
     List<CarReservation> getAllTodayReservation();
 
-    @Query(value = "SELECT * FROM car_reservation WHERE pick_up_date=current_date()", nativeQuery = true)
+    @Query(value = "SELECT * FROM car_reservation WHERE pick_up_date=current_date() AND reservation_status='Accept'", nativeQuery = true)
     List<CarReservation> getAllTodayPickUps();
 
     @Query(value = "SELECT * FROM car_reservation WHERE customer_nic=?1 AND reservation_status=?2", nativeQuery = true)

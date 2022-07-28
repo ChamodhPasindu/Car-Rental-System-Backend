@@ -1,5 +1,6 @@
 package lk.easycar.spring.service;
 
+import lk.easycar.spring.dto.DriverDTO;
 import lk.easycar.spring.dto.DriverScheduleDTO;
 
 import java.util.List;
@@ -11,4 +12,6 @@ public interface DriverScheduleService {
 
     List<DriverScheduleDTO> getDriverScheduleForSendCustomer(String customer_id);
 
+    String getDriverByReservationId(String id);
 }
+

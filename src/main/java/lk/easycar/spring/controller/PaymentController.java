@@ -34,4 +34,9 @@ public class PaymentController {
     public ResponseUtil DailyOrWeekOrAnnualIncome(@RequestParam String type, @RequestParam String start_date, @RequestParam String end_date) {
         return new ResponseUtil(200, "Done", reservationPaymentService.getIncomeByDate(type, start_date, end_date));
     }
+
+    @GetMapping(path = "todayIncomeList", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil todayIncomeList() {
+        return new ResponseUtil(200, "Done", reservationPaymentService.getTodayIncomeList());
+    }
 }
